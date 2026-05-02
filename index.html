@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consorcio MarCu - Enterprise OS v10.0</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap');
+        :root { --marcu-navy: #0f172a; --marcu-gold: #c5a059; --marcu-bg: #f8fafc; }
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--marcu-bg); color: var(--marcu-navy); scroll-behavior: smooth; }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+        .nav-link { transition: all 0.3s ease; border-bottom: 2px solid transparent; opacity: 0.6; cursor: pointer; white-space: nowrap; font-size: 10px; font-weight: 700; text-transform: uppercase; }
+        .active-tab { border-bottom: 2px solid var(--marcu-gold); color: var(--marcu-gold) !important; opacity: 1; }
+        .glass-card { background: white; border: 1px solid #e2e8f0; border-radius: 1.5rem; box-shadow: 0 4px 20px -10px rgba(0,0,0,0.05); }
+        .tab-content.hidden { display: none; }
+        .spinner { border: 2px solid rgba(255, 255, 255, 0.3); border-top: 2px solid #c5a059; border-radius: 50%; width: 14px; height: 14px; animation: spin 1s linear infinite; display: inline-block; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .cloud-badge { font-size: 10px; padding: 4px 10px; border-radius: 99px; background: #f0fdf4; color: #166534; display: flex; align-items: center; gap: 4px; font-weight: 700; }
+        table { width: 100%; border-collapse: collapse; font-size: 11px; }
+        th { background: #f8fafc; text-align: left; padding: 12px; font-weight: 700; border-bottom: 2px solid #e2e8f0; text-transform: uppercase; color: #64748b; }
+        td { padding: 12px; border-bottom: 1px solid #f1f5f9; }
+        .ai-gradient { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 px-6 py-4">
+        <div class="max-w-full mx-auto flex flex-col lg:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-slate-900 rounded-lg flex items-center justify-center text-[#c5a059] font-bold text-xl shadow-lg">MC</div>
+                <div>
+                    <h1 class="text-lg font-bold leading-none text-slate-900">GRUPO MarCu</h1>
+                    <div class="flex items-center gap-2 mt-1">
+                        <p class="text-[9px] uppercase tracking-[0.2em] text-amber-600 font-bold">Family & Health</p>
+                        <div id="sync-status" class="cloud-badge"><span class="w-2 h-2 bg-slate-300 rounded-full"></span> Conectando Nube...</div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex gap-4 overflow-x-auto w-full lg:w-auto pb-2 lg:pb-0 px-2 scrollbar-hide">
+                <button onclick="switchTab('dashboard')" id="tab-dashboard" class="nav-link px-2 py-1 active-tab">1. Dashboard</button>
+                <button onclick="switchTab('estrategia')" id="tab-plan" class="nav-link px-2 py-1">2. Estrategia</button>
+                <button onclick="switchTab('data')" id="tab-data" class="nav-link px-2 py-1">3. Mercado</button>
+                <button onclick="switchTab('insumos')" id="tab-insumos" class="nav-link px-2 py-1">4. Insumos</button>
+                <button onclick="switchTab('ops')" id="tab-ops" class="nav-link px-2 py-1">5. Operaciones</button>
+                <button onclick="switchTab('ai')" id="tab-ai" class="nav-link px-2 py-1">6. IA Gabinete ✨</button>
+                <button onclick="switchTab('finanzas')" id="tab-finanzas" class="nav-link px-2 py-1">7. Finanzas</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 py-8">
+
+        <!-- 1. DASHBOARD FAMILIAR -->
+        <section id="sec-dashboard" class="tab-content space-y-8">
+            <div class="text-center max-w-2xl mx-auto space-y-2">
+                <h2 class="text-3xl font-bold italic text-slate-900">Portal de Gestión Martínez Cuevas</h2>
+                <p class="text-[10px] text-slate-500 uppercase tracking-widest font-bold italic">Integración Total de Unidades de Negocio</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="glass-card p-6 border-t-4 border-slate-900 text-center">
+                    <h4 class="font-bold text-[10px] uppercase text-slate-400 mb-3 tracking-widest">Inversión Controlada</h4>
+                    <p class="text-3xl font-bold text-slate-800">$250,000 <span class="text-xs opacity-40">MXN</span></p>
+                </div>
+                <div class="glass-card p-6 border-t-4 border-gold">
+                    <h4 class="font-bold text-[10px] uppercase text-slate-400 mb-3 tracking-widest text-center">Gabinete</h4>
+                    <div class="flex justify-center -space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-slate-800 border-2 border-white flex items-center justify-center text-[10px] text-white font-bold" title="Ing. Martínez">IM</div>
+                        <div class="w-10 h-10 rounded-full bg-amber-500 border-2 border-white flex items-center justify-center text-[10px] text-white font-bold" title="Arq. Cuevas">AC</div>
+                        <div class="w-10 h-10 rounded-full bg-blue-500 border-2 border-white flex items-center justify-center text-[10px] text-white font-bold" title="Dr. Martínez">DM</div>
+                    </div>
+                </div>
+                <div class="glass-card p-6 border-t-4 border-emerald-500 text-center flex flex-col justify-center">
+                    <h4 class="font-bold text-[10px] uppercase text-slate-400 mb-2 tracking-widest">Estado Nube</h4>
+                    <p id="count-display" class="text-2xl font-bold text-slate-800">0 <span class="text-xs font-normal text-slate-400 uppercase">Acuerdos</span></p>
+                </div>
+            </div>
+
+            <div class="glass-card p-8">
+                <h3 class="text-xl font-bold mb-6 flex items-center gap-2 italic">💬 Muro de Decisiones en Tiempo Real</h3>
+                <div class="space-y-4">
+                    <div class="flex flex-col md:flex-row gap-4">
+                        <textarea id="cabinet-note" class="flex-1 bg-slate-50 border border-slate-200 rounded-xl p-4 text-sm focus:outline-none focus:border-gold" placeholder="Escriba un acuerdo familiar aquí..."></textarea>
+                        <button onclick="window.saveNote()" id="btn-save" class="bg-slate-900 text-white px-10 py-3 rounded-xl font-bold text-sm hover:bg-slate-800 transition-all shadow-lg">Sincronizar</button>
+                    </div>
+                    <div id="notes-list" class="space-y-4 mt-8 max-h-[500px] overflow-y-auto pr-2">
+                        <div class="text-center py-10 opacity-30 italic text-sm">Iniciando conexión segura con el Gabinete...</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. ESTRATEGIA (PLAN MAESTRO) -->
+        <section id="sec-estrategia" class="tab-content space-y-8 hidden">
+            <div class="glass-card p-10">
+                <h2 class="text-3xl font-bold mb-6 italic text-slate-800">Estrategia de Blindaje y Crecimiento</h2>
+                <div class="grid lg:grid-cols-2 gap-12">
+                    <div class="space-y-6">
+                        <div class="p-6 bg-slate-50 border-l-4 border-gold rounded-r-2xl">
+                            <h4 class="font-bold text-xs uppercase text-slate-400 mb-2">Modelo Híbrido</h4>
+                            <p class="text-[11px] text-slate-600 leading-relaxed italic">"Usted no vende productos; certifica salud bajo el sello Martínez Cuevas."</p>
+                            <p class="text-[10px] mt-4 text-slate-500">1. Captación vía Retail (40% margen).<br>2. Conversión a Socio (Ingreso Residual).</p>
+                        </div>
+                        <div class="p-6 bg-slate-50 border-l-4 border-slate-900 rounded-r-2xl">
+                            <h4 class="font-bold text-xs uppercase text-slate-400 mb-2">Holding MarCu</h4>
+                            <ul class="text-[10px] space-y-1 text-slate-500 font-bold uppercase tracking-tighter">
+                                <li>• MarCu VitalCare (Limpieza Botánica)</li>
+                                <li>• MarCu Clinical Home (Piel & Salud)</li>
+                                <li>• MarCu NutraScience (Suplementación)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="bg-slate-900 text-white p-10 rounded-[2.5rem] flex flex-col justify-center items-center shadow-2xl">
+                        <div class="text-6xl mb-6">🏛️</div>
+                        <h4 class="text-2xl font-bold italic text-gold tracking-widest uppercase">Sello MarCu</h4>
+                        <p class="text-[8px] opacity-40 uppercase tracking-widest mt-4">Ingeniería • Arquitectura • Medicina</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. BIG DATA & MERCADO -->
+        <section id="sec-data" class="tab-content space-y-8 hidden">
+            <div class="glass-card p-10">
+                <h2 class="text-2xl font-bold mb-8 italic text-slate-800 tracking-tight">Análisis de Mercado: Amazon MX & Helium 10</h2>
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div class="h-64"><canvas id="marketChart"></canvas></div>
+                    <div class="space-y-6">
+                        <div class="p-6 bg-emerald-50 rounded-2xl border border-emerald-100 italic text-[11px] text-emerald-800 leading-relaxed">
+                            "El arbitraje en Monterrey es rentable debido a la inelasticidad del precio frente al estatus profesional del gabinete."
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 text-center">
+                            <div class="p-4 border rounded-2xl shadow-sm"><p class="text-[9px] text-slate-400 uppercase font-bold">Demanda Potencial</p><p class="text-xl font-bold text-slate-900">ALTA</p></div>
+                            <div class="p-4 border rounded-2xl shadow-sm"><p class="text-[9px] text-slate-400 uppercase font-bold">Margen MarCu</p><p class="text-xl font-bold text-emerald-600">42%</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. INSUMOS Y COSTEO FASE 1 -->
+        <section id="sec-insumos" class="tab-content space-y-8 hidden">
+            <div class="glass-card p-8">
+                <h2 class="text-2xl font-bold mb-6 italic">Bill of Materials (BOM) - Fase 1</h2>
+                <div class="overflow-x-auto">
+                    <table>
+                        <thead>
+                            <tr><th>SKU Seleccionado</th><th>Cant.</th><th>Costo (MXN)</th><th>División MarCu</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>MelaPower 9x (Detergente)</td><td>10</td><td>$3,050</td><td>VitalCare</td></tr>
+                            <tr><td>Sol-U-Mel Limón (Set)</td><td>10</td><td>$2,700</td><td>VitalCare</td></tr>
+                            <tr><td>Collagen Boost (Nutrición)</td><td>5</td><td>$7,800</td><td>NutraScience</td></tr>
+                            <tr><td>Renew Lotion (Clínico)</td><td>10</td><td>$1,700</td><td>Clinical Home</td></tr>
+                            <tr class="bg-slate-50 font-bold"><td>INVERSIÓN TOTAL F1</td><td>-</td><td>$59,950</td><td>Validación</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. OPERACIONES (UNBOXING) -->
+        <section id="sec-ops" class="tab-content space-y-8 hidden">
+            <div class="grid lg:grid-cols-2 gap-10">
+                <div class="space-y-6">
+                    <h2 class="text-3xl font-bold italic tracking-tight text-slate-900">Ingeniería de Entrega</h2>
+                    <div class="space-y-4">
+                        <div class="p-6 bg-white border-l-4 border-slate-900 rounded-r-xl shadow-sm">
+                            <h4 class="font-bold text-xs text-amber-600 uppercase mb-1 italic">Capa 1: Blindaje de Suministro</h4>
+                            <p class="text-[11px] text-slate-500">Caja de envío neutra. Se retira toda la documentación original.</p>
+                        </div>
+                        <div class="p-6 bg-white border-l-4 border-gold rounded-r-xl shadow-sm">
+                            <h4 class="font-bold text-xs text-amber-600 uppercase mb-1 italic">Capa 2: Experiencia de Lujo</h4>
+                            <p class="text-[11px] text-slate-500">Caja Navy & Gold + Papel Seda + Sello de Lacre MarCu.</p>
+                        </div>
+                        <div class="p-6 bg-slate-900 text-white rounded-2xl border-l-4 border-gold">
+                            <h4 class="font-bold text-xs text-gold uppercase mb-1 italic">Capa 3: Validación Médica</h4>
+                            <p class="text-[11px] opacity-70">Ficha del Dr. Martínez + SOP Arquitectónico.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card p-10 flex flex-col justify-center items-center shadow-2xl">
+                    <div class="w-56 h-40 bg-slate-900 rounded-2xl flex items-center justify-center text-white transform -rotate-2 relative">
+                        <span class="font-bold italic tracking-tighter text-2xl text-[#c5a059]">MarCu</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. IA GABINETE ✨ -->
+        <section id="sec-ai" class="tab-content space-y-8 hidden">
+            <div class="text-center max-w-2xl mx-auto mb-10">
+                <h2 class="text-3xl font-bold italic">Laboratorio de IA MarCu ✨</h2>
+                <p class="text-sm text-slate-500">Gemini 2.5 Flash sincronizado en la nube para automatización del gabinete.</p>
+            </div>
+            
+            <div class="grid lg:grid-cols-3 gap-6">
+                <!-- Médico -->
+                <div class="ai-gradient p-6 rounded-[2rem] shadow-xl space-y-4">
+                    <h3 class="font-bold text-sm flex items-center gap-2">🩺 Dr. Martínez</h3>
+                    <input type="text" id="ai-protocol-in" placeholder="Ej: Piel reseca..." class="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-[11px] text-white outline-none">
+                    <button onclick="runAI('protocol')" id="btn-protocol" class="w-full bg-gold text-slate-900 font-bold py-2 rounded-xl text-xs hover:bg-amber-500">Generar Protocolo</button>
+                    <div id="ai-protocol-out" class="hidden bg-white/5 border border-white/10 p-3 rounded-xl text-[9px] max-h-32 overflow-y-auto font-mono text-white leading-relaxed"></div>
+                </div>
+                <!-- Marketing -->
+                <div class="glass-card p-6 border-l-8 border-slate-900 space-y-4">
+                    <h3 class="font-bold text-sm flex items-center gap-2">📽️ Marketing MarCu</h3>
+                    <select id="ai-script-in" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-[11px] outline-none">
+                        <option value="VitalCare">MarCu VitalCare</option>
+                        <option value="Clinical Home">MarCu Clinical Home</option>
+                    </select>
+                    <button onclick="runAI('script')" id="btn-script" class="w-full bg-slate-900 text-white font-bold py-2 rounded-xl text-xs">Redactar Guión</button>
+                    <div id="ai-script-out" class="hidden bg-slate-50 p-3 rounded-xl text-[9px] max-h-32 overflow-y-auto italic"></div>
+                </div>
+                <!-- Inversión -->
+                <div class="glass-card p-6 border-l-8 border-gold space-y-4">
+                    <h3 class="font-bold text-sm flex items-center gap-2">📊 Ingeniería</h3>
+                    <input type="number" id="ai-invest-in" placeholder="Cantidad MXN" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-[11px] outline-none">
+                    <button onclick="runAI('invest')" id="btn-invest" class="w-full bg-gold text-slate-900 font-bold py-2 rounded-xl text-xs">Simular ROI</button>
+                    <div id="ai-invest-out" class="hidden bg-amber-50 p-4 rounded-xl text-[10px] max-h-32 overflow-y-auto text-amber-900 font-medium"></div>
+                </div>
+            </div>
+            <div class="glass-card p-8 mt-12">
+                <h4 class="font-bold text-[10px] uppercase text-slate-400 tracking-[0.3em] mb-6">Historial Cloud de Consultas IA</h4>
+                <div id="ai-history" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-[9px]">
+                    <div class="col-span-full text-center py-10 italic opacity-30">Sincronizando registros con Google Cloud...</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. FINANZAS & ROI -->
+        <section id="sec-finanzas" class="tab-content space-y-8 hidden">
+            <div class="grid lg:grid-cols-2 gap-10">
+                <div class="glass-card p-8">
+                    <h3 class="text-xl font-bold mb-6 italic text-slate-400 text-center tracking-widest uppercase">Escalabilidad Martínez Cuevas</h3>
+                    <div class="h-64"><canvas id="financeChart"></canvas></div>
+                </div>
+                <div class="space-y-6">
+                    <div class="p-10 bg-slate-900 text-white rounded-3xl border-b-8 border-gold shadow-2xl">
+                        <h4 class="text-gold font-bold text-[10px] uppercase mb-4 tracking-[0.3em]">Utilidad Neta Proyectada Año 1</h4>
+                        <p class="text-6xl font-bold tracking-tighter text-center">$395,000 <span class="text-sm opacity-40">MXN</span></p>
+                        <div class="mt-6 flex justify-between text-[9px] font-bold uppercase text-slate-400 border-t border-white/10 pt-6">
+                            <span>ROI: 158%</span><span>Breakeven: Mes 4</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="py-16 border-t border-slate-200 text-center bg-white mt-12">
+        <p class="text-slate-400 text-[9px] uppercase tracking-[0.5em] font-bold">Grupo Martínez Cuevas • Monterrey • Global Cloud Sync v10.0</p>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, onSnapshot, collection, addDoc, serverTimestamp, query } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        const firebaseConfig = JSON.parse(__firebase_config);
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'marcu-unified-v10';
+
+        let user = null;
+
+        const initAuth = async () => {
+            if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                await signInWithCustomToken(auth, __initial_auth_token);
+            } else {
+                await signInAnonymously(auth);
+            }
+        };
+
+        onAuthStateChanged(auth, (u) => {
+            user = u;
+            if (u) {
+                document.getElementById('sync-status').innerHTML = `<span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span> Cloud Activo: ${u.uid.substring(0,4)}`;
+                loadCloudData();
+            }
+        });
+
+        initAuth();
+
+        function loadCloudData() {
+            if (!user) return;
+            const notesCol = collection(db, 'artifacts', appId, 'public', 'data', 'notes');
+            onSnapshot(notesCol, (snapshot) => {
+                const list = document.getElementById('notes-list');
+                const count = document.getElementById('count-display');
+                list.innerHTML = '';
+                count.innerHTML = `${snapshot.docs.length} <span class="text-xs font-normal text-slate-400 uppercase">Acuerdos</span>`;
+                snapshot.docs.sort((a,b) => (b.data().timestamp?.seconds || 0) - (a.data().timestamp?.seconds || 0)).forEach(d => {
+                    const data = d.data();
+                    const date = data.timestamp ? new Date(data.timestamp.toDate()).toLocaleString() : '...';
+                    list.innerHTML += `<div class="p-6 bg-white border border-slate-100 rounded-2xl shadow-sm border-l-4 border-gold">
+                        <p class="text-sm text-slate-700 font-medium">${data.text}</p>
+                        <div class="flex justify-between items-center mt-3 text-[8px] font-bold text-slate-300 border-t pt-3 uppercase">
+                            <span>ID: ${data.author?.substring(0,4)}</span><span>${date}</span>
+                        </div></div>`;
+                });
+            });
+
+            const aiCol = collection(db, 'artifacts', appId, 'public', 'data', 'ai_history');
+            onSnapshot(aiCol, (snapshot) => {
+                const list = document.getElementById('ai-history');
+                list.innerHTML = '';
+                snapshot.docs.sort((a,b) => (b.data().timestamp?.seconds || 0) - (a.data().timestamp?.seconds || 0)).forEach(d => {
+                    const data = d.data();
+                    list.innerHTML += `<div class="p-4 bg-slate-50 border border-slate-100 rounded-xl flex flex-col h-full">
+                        <p class="font-bold text-slate-900 mb-2 uppercase text-[8px] truncate">Q: ${data.input}</p>
+                        <p class="text-slate-500 italic flex-grow opacity-60">"${data.result.substring(0,40)}..."</p>
+                        <button onclick="alert('${data.result.replace(/'/g, "\\'")}')" class="mt-3 w-full py-1 text-[8px] font-bold uppercase text-gold hover:underline">Ver Completo</button></div>`;
+                });
+            });
+        }
+
+        window.saveNote = async () => {
+            const area = document.getElementById('cabinet-note');
+            if(!area.value || !user) return;
+            try {
+                await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'notes'), { text: area.value, timestamp: serverTimestamp(), author: user.uid });
+                area.value = '';
+            } catch(e) { console.error(e); }
+        };
+
+        window.runAI = async (type) => {
+            let input, btn, output, prompt;
+            if(type === 'protocol') { input = document.getElementById('ai-protocol-in'); btn = document.getElementById('btn-protocol'); output = document.getElementById('ai-protocol-out'); prompt = `Protocolo médico MarCu para: ${input.value}. Premium.`; }
+            else if(type === 'script') { input = document.getElementById('ai-script-in'); btn = document.getElementById('btn-script'); output = document.getElementById('ai-script-out'); prompt = `Guión video 30s MarCu ${input.value}. Estatus profesional.`; }
+            else { input = document.getElementById('ai-invest-in'); btn = document.getElementById('btn-invest'); output = document.getElementById('ai-invest-out'); prompt = `Análisis inversión ${input.value} MXN Grupo MarCu. Riesgos Poka-Yoke.`; }
+
+            if(!input.value || !user) return;
+            const originalText = btn.innerText; btn.innerText = "Sincronizando..."; btn.disabled = true;
+            try {
+                const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], systemInstruction: { parts: [{ text: "Consultor Jefe Gabinete MarCu (Ingeniería, Arquitectura, Medicina). Tono regio y científico." }] } })
+                });
+                const data = await res.json();
+                const result = data.candidates[0].content.parts[0].text;
+                output.innerHTML = result.replace(/\n/g, '<br>'); output.classList.remove('hidden');
+                await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'ai_history'), { input: input.value, result, timestamp: serverTimestamp() });
+                btn.innerText = originalText; btn.disabled = false;
+            } catch(e) { btn.innerText = "Error Cloud"; btn.disabled = false; }
+        };
+
+        window.switchTab = (id) => {
+            document.querySelectorAll('.tab-content').forEach(s => s.classList.add('hidden'));
+            document.getElementById('sec-' + id).classList.remove('hidden');
+            document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active-tab'));
+            document.getElementById('tab-' + id).classList.add('active-tab');
+        };
+
+        window.onload = () => {
+            new Chart(document.getElementById('financeChart'), {
+                type: 'line',
+                data: { labels: ['M1', 'M3', 'M6', 'M12'], datasets: [{ label: 'Flujo Cloud ($k)', data: [30, 95, 210, 480], borderColor: '#c5a059', tension: 0.4, fill: true, backgroundColor: 'rgba(197, 160, 89, 0.05)' }] },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+            new Chart(document.getElementById('marketChart'), {
+                type: 'bar',
+                data: { labels: ['MelaPower', 'Sol-U-Mel', 'Renew', 'Collagen'], datasets: [{ label: 'Demanda Amazon MX (%)', data: [95, 88, 82, 70], backgroundColor: '#0f172a' }, { label: 'Oportunidad MarCu (%)', data: [40, 45, 38, 30], backgroundColor: '#c5a059' }] },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+        };
+    </script>
+</body>
+</html>
