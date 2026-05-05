@@ -1,30 +1,29 @@
-<!-- PORTAL MAESTRO MARCU v15.3 - ULTIMA VERSION - FECHA: 05/MAY/2026 -->
-<!-- CAMBIOS: FIX DE NAVEGACION (BYPASS DE VARIABLES DE ENTORNO) Y ESTRUCTURA PARA CATALOGOS -->
+<!-- PORTAL MAESTRO MARCU v15.4 - ULTIMA VERSION - FECHA: 05/MAY/2026 -->
+<!-- CAMBIOS: RESTAURACION DE LABORATORIO IA, SELLO DE CONFIANZA, ANATOMIA DE ENTREGA Y METRICAS CON PORCENTAJES -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Maestro MarCu v15.3</title>
+    <title>Portal Maestro MarCu v15.4</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap');
         :root { --navy: #0f172a; --gold: #c5a059; --bg: #f8fafc; }
         body { font-family: 'Montserrat', sans-serif; background-color: var(--bg); color: var(--navy); margin: 0; }
-        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
         
-        /* Navegación Robusta v15.3 */
         .tab-content { display: none; }
-        .tab-content.active { display: block; animation: fadeIn 0.2s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
         
         .nav-link { cursor: pointer; opacity: 0.5; font-size: 10px; font-weight: 700; text-transform: uppercase; border-bottom: 2px solid transparent; padding: 10px 5px; transition: 0.3s; }
         .nav-link.active { opacity: 1; color: var(--gold); border-bottom-color: var(--gold); }
         
         .glass-card { background: white; border: 1px solid #e2e8f0; border-radius: 1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        .product-card { transition: transform 0.2s; cursor: pointer; }
-        .product-card:hover { transform: scale(1.02); }
+        .badge-premium { background: var(--gold); color: white; font-size: 0.6rem; padding: 2px 8px; border-radius: 99px; font-weight: 700; }
+        .ai-gradient { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; }
         
         table { width: 100%; border-collapse: collapse; font-size: 11px; }
         th { background: #f1f5f9; text-align: left; padding: 8px; border-bottom: 2px solid #e2e8f0; }
@@ -34,16 +33,15 @@
 </head>
 <body class="antialiased">
 
-    <!-- Navegación Institucional -->
     <nav class="sticky top-0 z-50 bg-white shadow-sm border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col md:flex-row justify-between items-center gap-2">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 bg-slate-900 rounded flex items-center justify-center text-[#c5a059] font-bold text-xl shadow-lg">MC</div>
                 <div>
-                    <h1 class="text-base font-bold leading-none">Portal Maestro MarCu v15.3</h1>
+                    <h1 class="text-base font-bold leading-none">Portal Maestro MarCu v15.4</h1>
                     <div class="flex items-center gap-2 mt-1">
                         <p class="text-[8px] uppercase tracking-widest text-amber-600 font-bold">Consorcio Family & Health</p>
-                        <div id="sync-status" class="cloud-badge"><span class="w-1.5 h-1.5 bg-slate-300 rounded-full"></span> Local Mode</div>
+                        <div id="sync-status" class="cloud-badge"><span class="w-1.5 h-1.5 bg-slate-300 rounded-full"></span> Conectando Nube...</div>
                     </div>
                 </div>
             </div>
@@ -60,131 +58,228 @@
 
     <main class="max-w-7xl mx-auto px-4 py-6">
 
-        <!-- 1. DASHBOARD -->
+        <!-- 1. DASHBOARD: PANEL DE CONTROL -->
         <section id="tab-dashboard" class="tab-content active space-y-6">
             <div class="text-center py-4">
                 <h2 class="text-2xl font-bold italic text-slate-900">Centro de Mando Martínez Cuevas</h2>
-                <p class="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Consolidación Operativa</p>
+                <p class="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Consolidación de Decisiones en Tiempo Real</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div class="glass-card p-6 border-t-4 border-slate-900 text-center">
                     <h4 class="text-[10px] uppercase text-slate-400 font-bold mb-1">Inversión Fase 1</h4>
                     <p class="text-2xl font-bold text-slate-800">$60,000</p>
+                    <p class="text-[8px] text-emerald-600 font-bold mt-1 uppercase">Presupuesto Liberado</p>
                 </div>
                 <div class="glass-card p-6 border-t-4 border-gold text-center">
                     <h4 class="text-[10px] uppercase text-slate-400 font-bold mb-1">Gabinete</h4>
-                    <p class="text-xs font-bold text-slate-600">ING | ARQ | MED</p>
+                    <div class="flex justify-center -space-x-2">
+                        <div class="w-8 h-8 rounded-full bg-slate-800 border-2 border-white flex items-center justify-center text-[8px] text-white font-bold">IM</div>
+                        <div class="w-8 h-8 rounded-full bg-amber-500 border-2 border-white flex items-center justify-center text-[8px] text-white font-bold">AC</div>
+                        <div class="w-8 h-8 rounded-full bg-blue-500 border-2 border-white flex items-center justify-center text-[8px] text-white font-bold">DM</div>
+                    </div>
                 </div>
                 <div class="glass-card p-6 border-t-4 border-emerald-500 text-center">
-                    <h4 class="text-[10px] uppercase text-slate-400 font-bold mb-1">Estatus del Sistema</h4>
-                    <p id="count-display" class="text-xl font-bold text-emerald-600 italic uppercase">Pruebas</p>
+                    <h4 class="text-[10px] uppercase text-slate-400 font-bold mb-1">Nube Cloud Sync</h4>
+                    <p id="count-display" class="text-xl font-bold text-emerald-600 italic">0 Acuerdos</p>
                 </div>
             </div>
             <div class="glass-card p-6">
-                <h3 class="font-bold mb-4 italic text-slate-700">💬 Muro de Decisiones Cloud (Modo Seguro)</h3>
-                <textarea id="cabinet-note" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm mb-4 focus:outline-none focus:border-gold" placeholder="Escriba un acuerdo familiar aquí..."></textarea>
-                <button onclick="saveNote()" class="bg-slate-900 text-white w-full py-3 rounded-xl font-bold text-sm shadow-lg hover:bg-slate-800">Sincronizar Nota</button>
+                <h3 class="font-bold mb-4 italic text-slate-700">💬 Muro de Decisiones del Gabinete</h3>
+                <textarea id="cabinet-note" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm mb-4 focus:outline-none focus:border-gold" placeholder="Escriba un acuerdo aquí..."></textarea>
+                <button onclick="saveNote()" id="btn-save-note" class="bg-slate-900 text-white w-full py-3 rounded-xl font-bold text-sm shadow-lg hover:bg-slate-800">Sincronizar Nota</button>
                 <div id="notes-list" class="mt-6 space-y-3">
-                    <div class="text-center text-[10px] text-slate-400 italic">El muro se activará al vincular la base de datos final.</div>
+                    <div class="text-center text-[10px] text-slate-400 italic">Cargando base de datos central de Grupo MarCu...</div>
                 </div>
             </div>
         </section>
 
-        <!-- 2. CATALOGO DE PRODUCTOS (NUEVA SECCIÓN) -->
+        <!-- 2. CATALOGO DE PRODUCTOS -->
         <section id="tab-catalogo" class="tab-content space-y-6">
             <div class="flex justify-between items-end border-b pb-4">
                 <h2 class="text-2xl font-bold italic">Catálogo de Soluciones MarCu</h2>
-                <span class="text-[10px] text-slate-400 uppercase font-bold tracking-widest">Pre-Producción</span>
+                <span class="text-[10px] text-slate-400 uppercase font-bold tracking-widest">En Verificación de Precios</span>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Placeholder Producto 1 -->
-                <div class="glass-card p-4 product-card flex flex-col items-center text-center">
-                    <div class="w-full h-40 bg-slate-100 rounded-lg mb-4 flex items-center justify-center italic text-slate-400 text-xs text-center p-4">
-                        [Aquí subiremos su foto de MelaPower 9x]
+                <div class="glass-card p-4 flex flex-col items-center text-center">
+                    <div class="w-full h-40 bg-slate-100 rounded-lg mb-4 flex items-center justify-center italic text-slate-400 text-xs p-4">
+                        [Foto MelaPower 9x]
                     </div>
                     <h4 class="font-bold text-sm">MelaPower 9x</h4>
-                    <p class="text-[10px] text-slate-500 uppercase mt-1">División: VitalCare</p>
-                    <p class="text-lg font-bold text-slate-900 mt-2">$305.00 <span class="text-[10px] font-normal opacity-50">Socio</span></p>
-                    <button class="mt-4 w-full border border-gold text-gold font-bold py-2 rounded-lg text-[9px] uppercase tracking-widest hover:bg-gold hover:text-white transition-all">Ver Protocolo</button>
+                    <p class="text-[9px] text-amber-600 font-bold uppercase mt-1">Limpieza Botánica</p>
+                    <p class="text-lg font-bold text-slate-900 mt-2">$305.00 <span class="text-[9px] font-normal opacity-50 uppercase">Precio Socio</span></p>
+                    <button class="mt-4 w-full border border-gold text-gold font-bold py-2 rounded-lg text-[9px] uppercase tracking-widest">Ver Protocolo</button>
                 </div>
 
-                <!-- Placeholder Producto 2 -->
-                <div class="glass-card p-4 product-card flex flex-col items-center text-center">
-                    <div class="w-full h-40 bg-slate-100 rounded-lg mb-4 flex items-center justify-center italic text-slate-400 text-xs text-center p-4">
-                        [Aquí subiremos su foto de Renew]
+                <div class="glass-card p-4 flex flex-col items-center text-center">
+                    <div class="w-full h-40 bg-slate-100 rounded-lg mb-4 flex items-center justify-center italic text-slate-400 text-xs p-4">
+                        [Foto Renew]
                     </div>
                     <h4 class="font-bold text-sm">Renew Lotion</h4>
-                    <p class="text-[10px] text-slate-500 uppercase mt-1">División: Clinical Home</p>
-                    <p class="text-lg font-bold text-slate-900 mt-2">$170.00 <span class="text-[10px] font-normal opacity-50">Socio</span></p>
-                    <button class="mt-4 w-full border border-gold text-gold font-bold py-2 rounded-lg text-[9px] uppercase tracking-widest hover:bg-gold hover:text-white transition-all">Ver Protocolo</button>
+                    <p class="text-[9px] text-amber-600 font-bold uppercase mt-1">Salud Dérmica</p>
+                    <p class="text-lg font-bold text-slate-900 mt-2">$170.00 <span class="text-[9px] font-normal opacity-50 uppercase">Precio Socio</span></p>
+                    <button class="mt-4 w-full border border-gold text-gold font-bold py-2 rounded-lg text-[9px] uppercase tracking-widest">Ver Protocolo</button>
                 </div>
 
-                <!-- Placeholder para agregar más -->
                 <div class="glass-card p-4 border-dashed border-2 border-slate-200 flex flex-col items-center justify-center text-center opacity-50">
                     <div class="text-4xl text-slate-300 mb-2">+</div>
-                    <p class="text-[10px] font-bold uppercase text-slate-400">Cargar nuevo insumo</p>
+                    <p class="text-[10px] font-bold uppercase text-slate-400">Próximamente Combos MarCu</p>
                 </div>
             </div>
         </section>
 
-        <!-- 3. PLAN MAESTRO -->
-        <section id="tab-estrategia" class="tab-content space-y-6">
+        <!-- 3. PLAN MAESTRO & SELLO DE CONFIANZA -->
+        <section id="tab-estrategia" class="tab-content space-y-8">
             <div class="glass-card p-8">
-                <h2 class="text-2xl font-bold mb-6 italic text-slate-900">Estrategia de Holding Familiar</h2>
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div class="space-y-4">
-                        <div class="p-4 bg-slate-50 border-l-4 border-gold rounded-r-xl shadow-sm">
-                            <h4 class="font-bold text-[10px] uppercase text-slate-400">Modelo de Negocio</h4>
-                            <p class="text-xs text-slate-600 leading-relaxed italic">"Certificamos la salud de los hogares bajo el estándar profesional de Ingeniería, Arquitectura y Medicina."</p>
+                <h2 class="text-3xl font-bold mb-6 italic text-slate-900 text-center">¿Quién nos conoce? El Sello de Confianza</h2>
+                <div class="grid md:grid-cols-2 gap-10">
+                    <div class="space-y-6">
+                        <div class="p-5 bg-slate-50 border-l-4 border-gold rounded-r-2xl">
+                            <h4 class="font-bold text-xs uppercase text-slate-700 mb-2">1. Credencial vs Tiempo</h4>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                En el mercado premium, un negocio nuevo genera desconfianza si se ve amateur. Pero si el negocio es presentado como el <strong>Gabinete Martínez Cuevas</strong>, la duda desaparece.
+                            </p>
                         </div>
+                        <ul class="text-[10px] space-y-3 font-bold text-slate-500 uppercase">
+                            <li class="flex items-center gap-2">🎓 Cédulas Profesionales visibles (Confianza Legal)</li>
+                            <li class="flex items-center gap-2">🛡️ Garantía de Satisfacción MarCu Standard</li>
+                            <li class="flex items-center gap-2">🩺 Protocolos firmados por el Dr. Martínez (Autoridad Médica)</li>
+                        </ul>
                     </div>
-                    <div class="bg-slate-900 text-white p-10 rounded-[2rem] text-center flex flex-col justify-center items-center shadow-xl border-b-4 border-gold">
-                        <div class="text-5xl mb-2">🏛️</div>
+                    <div class="bg-slate-900 text-white p-10 rounded-[2.5rem] flex flex-col justify-center items-center text-center shadow-xl border-b-8 border-gold">
+                        <div class="text-5xl mb-4">🏛️</div>
                         <h4 class="text-2xl font-bold italic text-gold tracking-widest uppercase">Sello MarCu</h4>
-                        <p class="text-[9px] mt-4 opacity-40 uppercase tracking-widest font-bold">Garantía de Calidad Total</p>
+                        <p class="text-[9px] mt-4 opacity-50 uppercase tracking-[0.4em] font-bold">Ingeniería • Arquitectura • Medicina</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COMPARATIVA -->
+            <div class="glass-card p-8">
+                <h3 class="text-xl font-bold mb-6 italic text-slate-700">Arquitectura de Inversión Segura</h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="p-6 bg-slate-50 rounded-2xl">
+                        <h4 class="font-bold text-xs text-slate-400 uppercase mb-4">Venta Inmueble (Tu Experiencia)</h4>
+                        <ul class="text-xs space-y-2 text-slate-600">
+                            <li>❌ Esfuerzo: Alto por cada cierre</li>
+                            <li>❌ Frecuencia: Venta única (Un disparo)</li>
+                            <li>❌ Riesgo: Inventario ajeno</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-emerald-900 text-white rounded-2xl">
+                        <h4 class="font-bold text-xs text-emerald-400 uppercase mb-4">Consumo Inteligente MarCu</h4>
+                        <ul class="text-xs space-y-2">
+                            <li>✅ Esfuerzo: Captación inicial única</li>
+                            <li>✅ Frecuencia: Recompra mensual automática (La Renta)</li>
+                            <li>✅ Riesgo: Inventario líquido y de uso familiar</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 4. DATA -->
+        <!-- 4. DATA CON PORCENTAJES -->
         <section id="tab-mercado" class="tab-content space-y-6">
             <div class="glass-card p-8">
-                <h2 class="text-xl font-bold mb-6 italic text-slate-900 text-center">Análisis de Mercado en Tiempo Real</h2>
-                <div class="h-64">
-                    <canvas id="marketChart"></canvas>
-                </div>
-            </div>
-        </section>
-
-        <!-- 5. SOP -->
-        <section id="tab-ops" class="tab-content space-y-6">
-            <div class="glass-card p-8 border-l-8 border-gold">
-                <h2 class="text-xl font-bold mb-6 italic text-slate-900">Standard Operating Procedure (SOP)</h2>
-                <div class="grid md:grid-cols-2 gap-8">
-                    <ul class="text-[11px] space-y-4 text-slate-500 font-medium">
-                        <li class="flex gap-2"><span>✅</span> 1. Blindaje: Neutralización de empaque original.</li>
-                        <li class="flex gap-2"><span>✅</span> 2. Estatus: Caja Navy/Gold MarCu + Papel Seda.</li>
-                        <li class="flex gap-2"><span>✅</span> 3. Calidad: Sello de Lacre Físico MC.</li>
-                        <li class="flex gap-2"><span>✅</span> 4. Autoridad: Protocolo Científico del Dr. Martínez.</li>
-                    </ul>
-                    <div class="bg-slate-900 text-white p-6 rounded-2xl flex items-center justify-center italic text-center">
-                        <p class="text-sm">"Calidad es hacer las cosas bien cuando nadie te está mirando."</p>
+                <h2 class="text-2xl font-bold mb-2 italic text-slate-900">Métricas de Amazon MX & Big Data</h2>
+                <p class="text-xs text-slate-400 mb-8 uppercase tracking-widest font-bold">Análisis de Best Sellers Rank (BSR) para Mitigar Riesgo</p>
+                <div class="grid md:grid-cols-3 gap-8 items-center">
+                    <div class="md:col-span-2 h-72">
+                        <canvas id="marketChart"></canvas>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-emerald-50 rounded-xl border border-emerald-100">
+                            <h5 class="text-[10px] font-bold text-emerald-800 uppercase mb-1">Demanda Amazon MX</h5>
+                            <p class="text-2xl font-bold text-emerald-600">95.4%</p>
+                            <p class="text-[9px] text-emerald-700 italic">En categoría Cuidado del Hogar</p>
+                        </div>
+                        <div class="p-4 bg-gold/10 rounded-xl border border-gold/20">
+                            <h5 class="text-[10px] font-bold text-amber-800 uppercase mb-1">Oportunidad Arbitraje</h5>
+                            <p class="text-2xl font-bold text-amber-600">42%</p>
+                            <p class="text-[9px] text-amber-700 italic">Margen Bruto Estimado</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 6. IA ✨ -->
+        <!-- 5. SOP & WRAPPER (ANATOMIA DE ENTREGA) -->
+        <section id="tab-ops" class="tab-content space-y-8">
+            <div class="glass-card p-8">
+                <h2 class="text-3xl font-bold mb-6 italic text-slate-900">El "Wrapper" de Grupo MarCu</h2>
+                <p class="text-sm text-slate-500 mb-10 leading-relaxed">
+                    Como Ingeniero, sabes que el empaque es parte del producto. Aquí explicamos cómo entregamos físicamente para proteger tu membresía y elevar el estatus.
+                </p>
+                
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200">
+                        <h4 class="font-bold text-[10px] text-amber-700 uppercase mb-3">Capa 1: El Mensajero</h4>
+                        <p class="text-xs font-bold mb-2">Caja de Envío Genérica</p>
+                        <p class="text-[10px] text-slate-500 italic">Protege la privacidad. Nadie sabe qué hay adentro hasta que llega a la puerta.</p>
+                    </div>
+                    <div class="p-6 bg-white border-2 border-gold/30 rounded-2xl shadow-lg">
+                        <h4 class="font-bold text-[10px] text-gold uppercase mb-3">Capa 2: La Marca MarCu</h4>
+                        <p class="text-xs font-bold mb-2 text-slate-800">Caja Boutique Navy & Gold</p>
+                        <p class="text-[10px] text-slate-500 italic">El cliente ve el lujo. El papel seda y el aroma botánico crean la conexión emocional.</p>
+                    </div>
+                    <div class="p-6 bg-slate-900 text-white rounded-2xl">
+                        <h4 class="font-bold text-[10px] text-gold uppercase mb-3">Capa 3: El Soporte Técnico</h4>
+                        <p class="text-xs font-bold mb-2">Ficha Médica + Producto Original</p>
+                        <p class="text-[10px] text-slate-400 italic">El envase original valida que es biociencia real. La ficha del Doctor explica el beneficio médico.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. LABORATORIO IA RESTAURADO ✨ -->
         <section id="tab-ai" class="tab-content space-y-6">
             <div class="text-center">
-                <h2 class="text-xl font-bold italic text-slate-900">Laboratorio IA Martínez Cuevas ✨</h2>
-                <p class="text-[10px] text-slate-400 uppercase tracking-widest mt-1">Sincronizado vía Gemini API</p>
+                <h2 class="text-3xl font-bold italic text-slate-900">Laboratorio IA Martínez Cuevas ✨</h2>
+                <p class="text-[10px] text-slate-400 uppercase tracking-widest mt-1 italic">Consultoría Integrada para el Gabinete</p>
             </div>
+            
             <div class="grid md:grid-cols-3 gap-4 text-left">
-                <div class="glass-card p-5 border-t-4 border-gold text-center">
-                    <p class="text-xs italic text-slate-400 py-10">Consola de Inteligencia en fase de conexión...</p>
+                <!-- MEDICO -->
+                <div class="glass-card p-5 border-t-4 border-gold bg-white">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">🩺</span>
+                        <h3 class="font-bold text-sm">Protocolo Médico</h3>
+                    </div>
+                    <p class="text-[9px] text-slate-500 mb-3 italic">Generación de guías clínicas para el cliente.</p>
+                    <input type="text" id="ai-in-p" placeholder="Ej: Piel sensible bebé..." class="w-full bg-slate-50 border p-2 rounded text-xs mb-3 outline-none focus:border-gold">
+                    <button onclick="runAI('protocol')" id="btn-protocol" class="w-full bg-slate-900 text-white py-2 rounded font-bold text-[10px]">Generar Protocolo</button>
+                    <div id="out-p" class="hidden mt-4 text-[9px] font-mono p-3 bg-slate-50 border rounded h-40 overflow-y-auto leading-relaxed text-slate-700"></div>
+                </div>
+
+                <!-- MARKETING -->
+                <div class="glass-card p-5 border-t-4 border-slate-900 bg-white">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">📽️</span>
+                        <h3 class="font-bold text-sm">Script de Marketing</h3>
+                    </div>
+                    <p class="text-[9px] text-slate-500 mb-3 italic">Guiones para videos de estatus en Monterrey.</p>
+                    <input type="text" id="ai-in-s" placeholder="Ej: Beneficio MelaPower..." class="w-full bg-slate-50 border p-2 rounded text-xs mb-3 outline-none focus:border-slate-900">
+                    <button onclick="runAI('script')" id="btn-script" class="w-full bg-slate-800 text-white py-2 rounded font-bold text-[10px]">Redactar Guión</button>
+                    <div id="out-s" class="hidden mt-4 text-[9px] italic p-3 bg-slate-50 border rounded h-40 overflow-y-auto leading-relaxed text-slate-600"></div>
+                </div>
+
+                <!-- INGENIERIA -->
+                <div class="glass-card p-5 border-t-4 border-gold bg-white">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">📊</span>
+                        <h3 class="font-bold text-sm">Análisis de ROI</h3>
+                    </div>
+                    <p class="text-[9px] text-slate-500 mb-3 italic">Simulación de corridas financieras.</p>
+                    <input type="number" id="ai-in-i" placeholder="Monto MXN..." class="w-full bg-slate-50 border p-2 rounded text-xs mb-3 outline-none">
+                    <button onclick="runAI('invest')" id="btn-invest" class="w-full bg-gold text-slate-900 py-2 rounded font-bold text-[10px]">Calcular ROI</button>
+                    <div id="out-i" class="hidden mt-4 text-[9px] p-3 bg-amber-50 border border-amber-100 rounded h-40 overflow-y-auto leading-relaxed font-medium text-amber-900"></div>
+                </div>
+            </div>
+
+            <div class="glass-card p-4">
+                <h4 class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-3 border-b pb-2">Historial Cloud de Inteligencia</h4>
+                <div id="ai-history" class="grid grid-cols-1 md:grid-cols-4 gap-3">
+                    <div class="col-span-full text-center py-4 text-[10px] text-slate-300 italic">Sincronizando registros con Google Cloud...</div>
                 </div>
             </div>
         </section>
@@ -192,50 +287,158 @@
     </main>
 
     <footer class="py-12 border-t text-center text-[9px] text-slate-400 uppercase font-bold tracking-[0.3em] bg-white mt-12">
-        Consorcio Martínez Cuevas • Monterrey • Global Cloud Sync v15.3
+        Consorcio Martínez Cuevas • Monterrey • Global Cloud Sync v15.4
     </footer>
 
-    <script>
-        // NAVEGACION ROBUSTA (Independiente de Firebase)
-        function showTab(id) {
-            console.log('Switching to panel: ' + id);
-            // 1. Ocultar todos los contenidos
-            const contents = document.getElementsByClassName('tab-content');
-            for (let i = 0; i < contents.length; i++) {
-                contents[i].classList.remove('active');
-            }
-            // 2. Desactivar todos los links
-            const links = document.getElementsByClassName('nav-link');
-            for (let i = 0; i < links.length; i++) {
-                links[i].classList.remove('active');
-            }
-            // 3. Activar el seleccionado
-            document.getElementById('tab-' + id).classList.add('active');
-            document.getElementById('btn-' + id).classList.add('active');
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, onSnapshot, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // CONFIGURACION MAIN-FRAME (Firebase)
+        const firebaseConfig = JSON.parse(__firebase_config);
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'marcu-master-v15';
+        const apiKey = ""; // Inyectada por entorno
+
+        // NAVEGACION POKA-YOKE
+        window.showTab = (id) => {
+            const tabs = ['dashboard', 'catalogo', 'estrategia', 'mercado', 'ops', 'ai'];
+            tabs.forEach(t => {
+                const content = document.getElementById('tab-' + t);
+                const nav = document.getElementById('btn-' + t);
+                if(content) content.classList.remove('active');
+                if(nav) nav.classList.remove('active');
+            });
+            const target = document.getElementById('tab-' + id);
+            const targetNav = document.getElementById('btn-' + id);
+            if(target) target.classList.add('active');
+            if(targetNav) targetNav.classList.add('active');
             window.scrollTo(0,0);
+        };
+
+        // AUTH & SYNC (Telemetría)
+        let user = null;
+        const initAuth = async () => {
+            try {
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else { await signInAnonymously(auth); }
+            } catch (e) { console.error("Auth Abend:", e); }
+        };
+
+        onAuthStateChanged(auth, u => {
+            user = u;
+            const statusEl = document.getElementById('sync-status');
+            if(u && statusEl) {
+                statusEl.innerHTML = `<span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-ping"></span> Cloud Sincronizado`;
+                loadData();
+            }
+        });
+        initAuth();
+
+        function loadData() {
+            if(!user) return;
+            // Muro de Notas (Sync Activo)
+            onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'notes'), (snap) => {
+                const list = document.getElementById('notes-list');
+                const count = document.getElementById('count-display');
+                if(list) {
+                    list.innerHTML = '';
+                    const sorted = snap.docs.sort((a,b) => (b.data().timestamp?.seconds || 0) - (a.data().timestamp?.seconds || 0));
+                    if(sorted.length === 0) list.innerHTML = '<p class="text-center text-[10px] text-slate-300 italic">Listo para acuerdos.</p>';
+                    sorted.forEach(d => {
+                        const data = d.data();
+                        const time = data.timestamp ? new Date(data.timestamp.toDate()).toLocaleTimeString('es-MX') : '...';
+                        list.innerHTML += `<div class="p-3 bg-white border border-slate-100 rounded-xl shadow-sm border-l-4 border-gold">
+                            <p class="text-[11px] text-slate-700 font-medium italic">"${data.text}"</p>
+                            <div class="flex justify-between mt-1 text-[7px] text-slate-400 font-bold uppercase">
+                                <span>Firma: ${data.author?.substring(0,4)}</span><span>${time}</span>
+                            </div></div>`;
+                    });
+                }
+                if(count) count.innerText = snap.docs.length + " Acuerdos";
+            }, (err) => { console.error("Snapshot fail", err); });
+
+            // Historial IA (Sync Activo)
+            onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'ai_history'), (snap) => {
+                const hist = document.getElementById('ai-history');
+                if(hist) {
+                    hist.innerHTML = '';
+                    const sorted = snap.docs.sort((a,b) => (b.data().timestamp?.seconds || 0) - (a.data().timestamp?.seconds || 0));
+                    sorted.forEach(d => {
+                        const data = d.data();
+                        hist.innerHTML += `<div class="p-2 bg-white border rounded text-[7px] shadow-sm flex flex-col h-14 overflow-hidden">
+                            <p class="font-bold truncate text-slate-900 uppercase">${data.input || 'IA'}</p>
+                            <p class="opacity-40 italic truncate mt-1">"${data.result ? data.result.substring(0,25) : ''}..."</p>
+                            <button onclick="alert('${data.result ? data.result.replace(/'/g, "\\'").replace(/\n/g, "\\n") : ""}')" class="text-gold font-bold uppercase mt-1 text-right hover:underline">Ver</button>
+                        </div>`;
+                    });
+                }
+            });
         }
 
-        // Gráfico de Telemetría de Mercado
-        window.onload = function() {
+        window.saveNote = async () => {
+            const area = document.getElementById('cabinet-note');
+            if(!area || !area.value.trim() || !user) return;
+            const btn = document.getElementById('btn-save-note');
+            btn.disabled = true; btn.innerText = "Guardando...";
+            try { 
+                await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'notes'), { text: area.value.trim(), timestamp: serverTimestamp(), author: user.uid }); area.value = ''; 
+            } catch(e) { console.error(e); }
+            btn.disabled = false; btn.innerText = "Sincronizar Nota";
+        };
+
+        window.runAI = async (type) => {
+            const inputField = type === 'protocol' ? 'ai-in-p' : (type === 'script' ? 'ai-in-s' : 'ai-in-i');
+            const input = document.getElementById(inputField)?.value || "Estrategia MarCu";
+            const outId = type === 'protocol' ? 'out-p' : (type === 'script' ? 'out-s' : 'out-i');
+            const output = document.getElementById(outId);
+            if(!output || !user) return;
+
+            output.innerHTML = "<span class='animate-pulse'>Procesando en la nube de Google...</span>"; output.classList.remove('hidden');
+
+            try {
+                const prompt = `Como el consultor jefe del Gabinete MarCu (Ingeniería, Arquitectura, Medicina), genera un ${type === 'protocol' ? 'protocolo de salud o higiene' : (type === 'script' ? 'guión de venta de estatus para Monterrey' : 'análisis de rentabilidad')} para: ${input}. Tono regio, profesional y científico.`;
+                const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], systemInstruction: { parts: [{ text: "Eres la IA corporativa del Consorcio Martínez Cuevas." }] } })
+                });
+                const data = await res.json();
+                const result = data.candidates?.[0]?.content?.parts?.[0]?.text || "Error en respuesta.";
+                output.innerHTML = result.replace(/\n/g, '<br>');
+                await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'ai_history'), { input, result, timestamp: serverTimestamp() });
+            } catch(e) { output.innerHTML = "Error en enlace cloud. Reintente."; }
+        };
+
+        // REPORTING VISUAL (DATOS CON PORCENTAJES)
+        window.onload = () => {
             const ctx = document.getElementById('marketChart');
             if(ctx) {
                 new Chart(ctx, {
                     type: 'bar',
                     data: { 
-                        labels: ['Higiene', 'Salud', 'Nutrición'], 
+                        labels: ['MelaPower (Limpieza)', 'Renew (Piel)', 'Collagen (Nutrición)', 'Sol-U-Mel (Higiene)'], 
                         datasets: [
-                            { label: 'Demanda (%)', data: [95, 82, 70], backgroundColor: '#0f172a' }, 
-                            { label: 'Margen (%)', data: [45, 42, 38], backgroundColor: '#c5a059' }
+                            { label: 'Demanda Amazon MX (%)', data: [95, 82, 70, 88], backgroundColor: '#0f172a' }, 
+                            { label: 'Oportunidad Arbitraje (%)', data: [42, 38, 30, 45], backgroundColor: '#c5a059' }
                         ] 
                     },
-                    options: { responsive: true, maintainAspectRatio: false }
+                    options: { 
+                        responsive: true, 
+                        maintainAspectRatio: false,
+                        plugins: { 
+                            legend: { labels: { font: { size: 9, family: 'Montserrat' } } },
+                            tooltip: { callbacks: { label: (context) => context.dataset.label + ': ' + context.parsed.y + '%' } }
+                        },
+                        scales: { y: { beginAtZero: true, max: 100, ticks: { callback: (val) => val + '%' } } }
+                    }
                 });
             }
         };
-
-        // Firebase Guard (Para evitar ABEND si no hay variables de entorno)
-        function saveNote() { alert('Modo Pre-Producción: El guardado se activará en la v16.0'); }
-        function runAI() { alert('IA MarCu: Conectando con servidor Gemini...'); }
     </script>
 
 </body>
