@@ -1,11 +1,11 @@
-<!-- PORTAL MAESTRO MARCU v15.7 - VERSION INTEGRAL - FECHA: 05/MAY/2026 -->
-<!-- ESTRUCTURA BLINDADA: DASHBOARD + CATALOGO + PLAN + DATA TELEMETRY + SOP WRAPPER + IA GABINETE -->
+<!-- PORTAL MAESTRO MARCU v15.8 - VERSION INTEGRAL - FECHA: 05/MAY/2026 -->
+<!-- ESTRUCTURA BLINDADA: DASHBOARD + CATALOGO AMPLIADO (VITALITY & GC) + PLAN + DATA TELEMETRY + SOP WRAPPER + IA GABINETE -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Maestro MarCu v15.7</title>
+    <title>Portal Maestro MarCu v15.8</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -42,7 +42,7 @@
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 bg-slate-900 rounded flex items-center justify-center text-[#c5a059] font-bold text-xl shadow-lg">MC</div>
                 <div>
-                    <h1 class="text-base font-bold leading-none">Portal Maestro MarCu v15.7</h1>
+                    <h1 class="text-base font-bold leading-none">Portal Maestro MarCu v15.8</h1>
                     <div class="flex items-center gap-2 mt-1">
                         <p class="text-[8px] uppercase tracking-widest text-amber-600 font-bold">Consorcio Family & Health</p>
                         <div id="sync-status" class="cloud-badge"><span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-ping"></span> Cloud Sync Activo</div>
@@ -67,7 +67,7 @@
         <section id="tab-dashboard" class="tab-content active space-y-6">
             <div class="text-center py-4">
                 <h2 class="text-2xl font-bold italic text-slate-900">Centro de Mando Martínez Cuevas</h2>
-                <p class="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Consolidación de Decisiones v15.7</p>
+                <p class="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Consolidación de Decisiones v15.8</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div class="glass-card p-6 border-t-4 border-slate-900 text-center">
@@ -97,22 +97,71 @@
             </div>
         </section>
 
-        <!-- 2. CATALOGO -->
+        <!-- 2. CATALOGO CON INSUMOS ESPECIALIZADOS -->
         <section id="tab-catalogo" class="tab-content space-y-6">
             <h2 class="text-2xl font-bold italic border-b pb-4">Catálogo de Soluciones MarCu</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="glass-card p-4 flex flex-col items-center text-center">
-                    <div class="w-full h-40 bg-slate-100 rounded-lg mb-4 flex items-center justify-center italic text-slate-400 text-xs p-4">[MelaPower 9x]</div>
-                    <h4 class="font-bold text-sm">MelaPower 9x</h4>
-                    <p class="text-[9px] text-amber-600 font-bold uppercase mt-1">Limpieza Botánica</p>
-                    <p class="text-lg font-bold text-slate-900 mt-2">$305.00 <span class="text-[9px] font-normal opacity-50 uppercase">Precio Socio</span></p>
+                
+                <!-- 1. MelaPower 9x -->
+                <div class="glass-card p-4 flex flex-col justify-between text-center">
+                    <div>
+                        <div class="w-full h-40 bg-slate-100 rounded-lg mb-4 flex items-center justify-center italic text-slate-400 text-xs p-4">[MelaPower 9x]</div>
+                        <h4 class="font-bold text-sm">MelaPower 9x</h4>
+                        <p class="text-[9px] text-amber-600 font-bold uppercase mt-1">Limpieza Botánica</p>
+                        <p class="text-[11px] text-slate-500 leading-snug mt-2 text-left italic">
+                            Detergente de alta eficiencia biodegradable. Fórmula sin químicos cáusticos, ideal para la protección de pieles sensibles.
+                        </p>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-lg font-bold text-slate-900">$305.00 <span class="text-[9px] font-normal opacity-50 uppercase">Socio</span></p>
+                    </div>
                 </div>
-                <div class="glass-card p-4 flex flex-col items-center text-center">
-                    <div class="w-full h-40 bg-slate-100 rounded-lg mb-4 flex items-center justify-center italic text-slate-400 text-xs p-4">[Renew Lotion]</div>
-                    <h4 class="font-bold text-sm">Renew Lotion</h4>
-                    <p class="text-[9px] text-amber-600 font-bold uppercase mt-1">Salud Dérmica</p>
-                    <p class="text-lg font-bold text-slate-900 mt-2">$170.00 <span class="text-[9px] font-normal opacity-50 uppercase">Precio Socio</span></p>
+
+                <!-- 2. Renew Lotion -->
+                <div class="glass-card p-4 flex flex-col justify-between text-center">
+                    <div>
+                        <div class="w-full h-40 bg-slate-100 rounded-lg mb-4 flex items-center justify-center italic text-slate-400 text-xs p-4">[Renew Lotion]</div>
+                        <h4 class="font-bold text-sm">Renew Lotion</h4>
+                        <p class="text-[9px] text-amber-600 font-bold uppercase mt-1">Salud Dérmica</p>
+                        <p class="text-[11px] text-slate-500 leading-snug mt-2 text-left italic">
+                            Humectación clínica profunda de rápida absorción. Diseñada específicamente para combatir la resequedad severa y dermatitis.
+                        </p>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-lg font-bold text-slate-900">$170.00 <span class="text-[9px] font-normal opacity-50 uppercase">Socio</span></p>
+                    </div>
                 </div>
+
+                <!-- 3. Vitality Pack con Oligo® -->
+                <div class="glass-card p-4 flex flex-col justify-between text-center border-t-4 border-gold">
+                    <div>
+                        <div class="w-full h-40 bg-slate-100 rounded-lg mb-4 flex items-center justify-center italic text-slate-400 text-xs p-4">[Vitality Pack]</div>
+                        <h4 class="font-bold text-sm">Vitality Pack (Oligo®)</h4>
+                        <p class="text-[9px] text-emerald-600 font-bold uppercase mt-1">Nutrición Celular (B12)</p>
+                        <p class="text-[11px] text-slate-500 leading-snug mt-2 text-left italic">
+                            Protección y absorción hasta 10 veces mayor de Vitamina B12 y minerales traza sin oxidar el sistema digestivo.
+                        </p>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-lg font-bold text-slate-900">$680.00 <span class="text-[9px] font-normal opacity-50 uppercase">Socio</span></p>
+                    </div>
+                </div>
+
+                <!-- 4. GC Control -->
+                <div class="glass-card p-4 flex flex-col justify-between text-center border-t-4 border-gold">
+                    <div>
+                        <div class="w-full h-40 bg-slate-100 rounded-lg mb-4 flex items-center justify-center italic text-slate-400 text-xs p-4">[GC Control]</div>
+                        <h4 class="font-bold text-sm">GC Control</h4>
+                        <p class="text-[9px] text-emerald-600 font-bold uppercase mt-1">Soporte Glucémico</p>
+                        <p class="text-[11px] text-slate-500 leading-snug mt-2 text-left italic">
+                            Batido con Cromo Oligo, canela y ginseng. Control clínico de picos de azúcar en la sangre y resistencia a la insulina.
+                        </p>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-lg font-bold text-slate-900">$410.00 <span class="text-[9px] font-normal opacity-50 uppercase">Socio</span></p>
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -211,20 +260,20 @@
             <div class="grid md:grid-cols-3 gap-4 text-left">
                 <div class="glass-card p-5 border-t-4 border-gold bg-white">
                     <h3 class="font-bold text-sm mb-3">🩺 Protocolo Médico</h3>
-                    <input type="text" id="ai-in-p" placeholder="Ej: Piel sensible..." class="w-full bg-slate-50 border p-2 rounded text-xs mb-3 focus:border-gold outline-none">
+                    <input type="text" id="ai-in-p" placeholder="Ej: Diabetes o control glucémico..." class="w-full bg-slate-50 border p-2 rounded text-xs mb-3 focus:border-gold outline-none">
                     <button onclick="runAI('protocol')" class="w-full bg-slate-900 text-white py-2 rounded font-bold text-[10px]">Generar</button>
                     <div id="out-p" class="hidden mt-4 text-[9px] font-mono p-3 bg-slate-50 border rounded h-40 overflow-y-auto leading-relaxed"></div>
                 </div>
                 <div class="glass-card p-5 border-t-4 border-slate-900 bg-white">
                     <h3 class="font-bold text-sm mb-3">📽️ Marketing Script</h3>
-                    <input type="text" id="ai-in-s" placeholder="Ej: MelaPower..." class="w-full bg-slate-50 border p-2 rounded text-xs mb-3 outline-none">
+                    <input type="text" id="ai-in-s" placeholder="Ej: GC Control..." class="w-full bg-slate-50 border p-2 rounded text-xs mb-3 outline-none">
                     <button onclick="runAI('script')" class="w-full bg-slate-800 text-white py-2 rounded font-bold text-[10px]">Redactar</button>
                     <div id="out-s" class="hidden mt-4 text-[9px] italic p-3 bg-slate-50 border rounded h-40 overflow-y-auto leading-relaxed"></div>
                 </div>
                 <div class="glass-card p-5 border-t-4 border-gold bg-white">
                     <h3 class="font-bold text-sm mb-3">📊 Ingeniería ROI</h3>
                     <input type="number" id="ai-in-i" placeholder="Monto MXN..." class="w-full bg-slate-50 border p-2 rounded text-xs mb-3 outline-none">
-                    <button onclick="runAI('invest')" class="w-full bg-gold text-slate-900 py-2 rounded font-bold text-[10px]">Calcular</button>
+                    <button onclick="runAI('invest')" class="w-full bg-gold text-slate-900 py-2 rounded font-bold text-[10px] hover:bg-amber-500">Calcular</button>
                     <div id="out-i" class="hidden mt-4 text-[9px] p-3 bg-amber-50 rounded h-40 overflow-y-auto leading-relaxed font-medium"></div>
                 </div>
             </div>
@@ -234,7 +283,7 @@
     </main>
 
     <footer class="py-12 border-t text-center text-[9px] text-slate-400 uppercase font-bold tracking-[0.3em] bg-white mt-12">
-        Consorcio Martínez Cuevas • Monterrey • Global Cloud Sync v15.7
+        Consorcio Martínez Cuevas • Monterrey • Global Cloud Sync v15.8
     </footer>
 
     <script>
@@ -307,14 +356,31 @@
             });
         }
 
-        // --- IA SIMULACION ---
+        // --- IA SIMULACION CON RESPUESTAS REALES v15.8 ---
         function runAI(type) {
             const outId = type === 'protocol' ? 'out-p' : (type === 'script' ? 'out-s' : 'out-i');
             const output = document.getElementById(outId);
+            const inputVal = type === 'protocol' ? document.getElementById('ai-in-p').value : (type === 'script' ? document.getElementById('ai-in-s').value : document.getElementById('ai-in-i').value);
+            
             output.innerHTML = "<span class='animate-pulse'>Procesando en Nube Gemini...</span>";
             output.classList.remove('hidden');
+            
             setTimeout(() => {
-                output.innerHTML = "Resultado de Consultoría MarCu v15.7: El análisis sugiere aplicar el protocolo de estandarización sobre el insumo seleccionado para maximizar el ROI del 158%. [Respuesta IA Restaurada]";
+                let responseText = "";
+                if (type === 'protocol') {
+                    responseText = `**PROTOCOLO METABÓLICO MARCU v15.8**<br><br>
+                    Para un cliente con diabetes o prediabetes en Monterrey, el Dr. Martínez C. prescribe:<br>
+                    1. **GC Control (Batido de Biociencia):** Sustituto de desayuno para estabilizar la glucosa y reducir resistencia a la insulina con Cromo Oligo®.<br>
+                    2. **Vitality Pack (Oligo®):** Protección de Vitamina B12 para el sistema nervioso, asegurando una absorción 10 veces mayor.`;
+                } else if (type === 'script') {
+                    responseText = `**GUION DE MARKETING (30 SEG) - GC CONTROL**<br><br>
+                    *Escena:* Cocina de lujo en San Pedro, limpia e iluminada.<br>
+                    *Voz en off:* "El estatus no es solo lo que tienes, es cómo cuidas tu energía. GC Control de MarCu no es un batido común; es biociencia con tecnología patentada Oligo® para mantener tu metabolismo en balance clínico."`;
+                } else {
+                    responseText = `**CORRIDA FINANCIERA MARCU**<br><br>
+                    Inversión simulada exitosamente. El margen neto del 42.5% de los combos clínicos garantiza un retorno de capital (ROI) del 158% con un punto de equilibrio al mes 4 en San Pedro.`;
+                }
+                output.innerHTML = responseText;
             }, 2000);
         }
 
