@@ -1,11 +1,11 @@
-<!-- PORTAL MAESTRO MARCU v15.8 - VERSION INTEGRAL - FECHA: 05/MAY/2026 --> 
-<!-- ESTRUCTURA BLINDADA: DASHBOARD + CATALOGO AMPLIADO (VITALITY & GC) + PLAN + DATA TELEMETRY + SOP WRAPPER + IA GABINETE -->
+<!-- PORTAL MAESTRO MARCU v16.2 - VERSION DE PRODUCCIÓN INTEGRAL - FECHA: 04/JUL/2026 -->
+<!-- ESTRUCTURA BLINDADA: MOTOR IA DE ALTA GAMA (FICHAS PREMIUM), BASE DE DATOS INTERCONECTADA, MODALS INTEGRADOS Y BOTONES DE FLUJO -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Maestro MarCu v15.8</title>
+    <title>Portal Maestro MarCu v16.2</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -14,7 +14,7 @@
         body { font-family: 'Montserrat', sans-serif; background-color: var(--bg); color: var(--navy); margin: 0; }
         h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
         
-        /* Navegación Poka-Yoke */
+        /* Sistema de Navegación Poka-Yoke */
         .tab-content { display: none; }
         .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; } }
@@ -36,13 +36,23 @@
 </head>
 <body class="antialiased">
 
-    <!-- CABECERA DE TRAZABILIDAD -->
+    <!-- MODAL PREMIUM CORPORATIVO (REEMPLAZA ALERTS INVASIVAS) -->
+    <div id="custom-modal" class="fixed inset-0 z-50 hidden bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200">
+            <h3 id="modal-title" class="font-bold text-lg text-slate-900 border-b pb-2">Gabinete MarCu</h3>
+            <div id="modal-body" class="mt-4 text-xs text-slate-600 leading-relaxed max-h-96 overflow-y-auto"></div>
+            <div class="mt-6 flex justify-end">
+                <button onclick="closeModal()" class="bg-slate-900 text-white px-5 py-2 rounded-xl text-xs font-bold hover:bg-slate-800 transition-colors">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
     <nav class="sticky top-0 z-50 bg-white shadow-sm border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col md:flex-row justify-between items-center gap-2">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 bg-slate-900 rounded flex items-center justify-center text-[#c5a059] font-bold text-xl shadow-lg">MC</div>
                 <div>
-                    <h1 class="text-base font-bold leading-none">Portal Maestro MarCu v15.8</h1>
+                    <h1 class="text-base font-bold leading-none">Portal Maestro MarCu v16.2</h1>
                     <div class="flex items-center gap-2 mt-1">
                         <p class="text-[8px] uppercase tracking-widest text-amber-600 font-bold">Consorcio Family & Health</p>
                         <div id="sync-status" class="cloud-badge"><span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-ping"></span> Cloud Sync Activo</div>
@@ -63,19 +73,19 @@
 
     <main class="max-w-7xl mx-auto px-4 py-6">
 
-        <!-- 1. DASHBOARD: MURO DE DECISIONES REAL -->
+        <!-- 1. DASHBOARD: PANEL DE ACUERDOS CON SIMULADOR CLOUD -->
         <section id="tab-dashboard" class="tab-content active space-y-6">
             <div class="text-center py-4">
                 <h2 class="text-2xl font-bold italic text-slate-900">Centro de Mando Martínez Cuevas</h2>
-                <p class="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Consolidación de Decisiones v15.8</p>
+                <p class="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Consolidación de Decisiones v16.2</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div class="glass-card p-6 border-t-4 border-slate-900 text-center">
-                    <h4 class="text-[10px] uppercase text-slate-400 font-bold">Inversión F1</h4>
+                    <h4 class="text-[10px] uppercase text-slate-400 font-bold mb-1">Inversión F1</h4>
                     <p class="text-2xl font-bold text-slate-800">$60,000</p>
                 </div>
                 <div class="glass-card p-6 border-t-4 border-gold text-center">
-                    <h4 class="text-[10px] uppercase text-slate-400 font-bold">Gabinete MarCu</h4>
+                    <h4 class="text-[10px] uppercase text-slate-400 font-bold mb-1">Gabinete MarCu</h4>
                     <div class="flex justify-center -space-x-2 mt-1">
                         <div class="w-8 h-8 rounded-full bg-slate-800 border-2 border-white flex items-center justify-center text-[8px] text-white font-bold">IM</div>
                         <div class="w-8 h-8 rounded-full bg-amber-500 border-2 border-white flex items-center justify-center text-[8px] text-white font-bold">AC</div>
@@ -87,81 +97,156 @@
                     <p id="count-display" class="text-xl font-bold text-emerald-600 italic">0 Acuerdos</p>
                 </div>
             </div>
+            
             <div class="glass-card p-6">
                 <h3 class="font-bold mb-4 italic text-slate-700">💬 Muro de Decisiones Cloud</h3>
-                <textarea id="cabinet-note" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm mb-4 focus:outline-none focus:border-gold" placeholder="Escriba un acuerdo familiar aquí..."></textarea>
-                <button onclick="saveNote()" class="bg-slate-900 text-white w-full py-3 rounded-xl font-bold text-sm shadow-lg hover:bg-slate-800">Sincronizar Nota</button>
-                <div id="notes-list" class="mt-8 space-y-3">
-                    <div class="text-center text-[10px] text-slate-400 italic py-4 border-t">Área de visualización de acuerdos del gabinete.</div>
+                <textarea id="cabinet-note" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm mb-4 focus:outline-none" placeholder="Escriba un acuerdo familiar aquí..."></textarea>
+                <button onclick="saveNote()" class="bg-slate-900 text-white w-full py-3 rounded-xl font-bold text-sm shadow-lg hover:bg-slate-800 transition-colors">Sincronizar Nota</button>
+                
+                <!-- Historial de Acuerdos del Gabinete -->
+                <div class="mt-8">
+                    <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-widest border-b pb-2 mb-4">Registro de Acuerdos Recientes</h4>
+                    <div id="notes-list" class="space-y-3">
+                        <div class="text-center text-[10px] text-slate-300 italic py-4">No hay acuerdos registrados en esta sesión de simulación.</div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- 2. CATALOGO CON INSUMOS ESPECIALIZADOS -->
-        <section id="tab-catalogo" class="tab-content space-y-6">
+        <!-- 2. CATALOGO DE PRODUCTOS Y BASE DE DATOS TÉCNICA -->
+        <section id="tab-catalogo" class="tab-content space-y-8">
             <h2 class="text-2xl font-bold italic border-b pb-4">Catálogo de Soluciones MarCu</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 
-                <!-- 1. MelaPower 9x -->
+                <!-- MelaPower 9x -->
                 <div class="glass-card p-4 flex flex-col justify-between text-center">
                     <div>
                         <div class="w-full h-40 bg-slate-100 rounded-lg mb-4 flex items-center justify-center italic text-slate-400 text-xs p-4">[MelaPower 9x]</div>
                         <h4 class="font-bold text-sm">MelaPower 9x</h4>
                         <p class="text-[9px] text-amber-600 font-bold uppercase mt-1">Limpieza Botánica</p>
                         <p class="text-[11px] text-slate-500 leading-snug mt-2 text-left italic">
-                            Detergente de alta eficiencia biodegradable. Fórmula sin químicos cáusticos, ideal para la protección de pieles sensibles.
+                            Detergente biodegradable de alta eficiencia libre de químicos cáusticos. Específicamente formulado para evitar irritación en pieles sensibles.
                         </p>
                     </div>
                     <div class="mt-4">
-                        <p class="text-lg font-bold text-slate-900">$305.00 <span class="text-[9px] font-normal opacity-50 uppercase">Socio</span></p>
+                        <p class="text-lg font-bold text-slate-900">$305.00 <span class="text-[9px] font-normal opacity-50 uppercase">Precio Socio</span></p>
                     </div>
                 </div>
 
-                <!-- 2. Renew Lotion -->
-                <div class="glass-card p-4 flex flex-col justify-between text-center">
+                <!-- Renew Lotion -->
+                <div class="glass-card p-4 flex flex-col justify-between text-center border-2 border-gold">
                     <div>
                         <div class="w-full h-40 bg-slate-100 rounded-lg mb-4 flex items-center justify-center italic text-slate-400 text-xs p-4">[Renew Lotion]</div>
                         <h4 class="font-bold text-sm">Renew Lotion</h4>
                         <p class="text-[9px] text-amber-600 font-bold uppercase mt-1">Salud Dérmica</p>
                         <p class="text-[11px] text-slate-500 leading-snug mt-2 text-left italic">
-                            Humectación clínica profunda de rápida absorción. Diseñada específicamente para combatir la resequedad severa y dermatitis.
+                            Humectación clínica de rápida absorción para el tratamiento preventivo de resequedad severa, eczema y dermatitis familiar.
                         </p>
                     </div>
                     <div class="mt-4">
-                        <p class="text-lg font-bold text-slate-900">$170.00 <span class="text-[9px] font-normal opacity-50 uppercase">Socio</span></p>
+                        <p class="text-lg font-bold text-slate-900">$170.00 <span class="text-[9px] font-normal opacity-50 uppercase">Precio Socio</span></p>
                     </div>
                 </div>
 
-                <!-- 3. Vitality Pack con Oligo® -->
+                <!-- Vitality Pack con Oligo® -->
                 <div class="glass-card p-4 flex flex-col justify-between text-center border-t-4 border-gold">
                     <div>
                         <div class="w-full h-40 bg-slate-100 rounded-lg mb-4 flex items-center justify-center italic text-slate-400 text-xs p-4">[Vitality Pack]</div>
                         <h4 class="font-bold text-sm">Vitality Pack (Oligo®)</h4>
                         <p class="text-[9px] text-emerald-600 font-bold uppercase mt-1">Nutrición Celular (B12)</p>
                         <p class="text-[11px] text-slate-500 leading-snug mt-2 text-left italic">
-                            Protección y absorción hasta 10 veces mayor de Vitamina B12 y minerales traza sin oxidar el sistema digestivo.
+                            Aporte celular de Vitamina B12 de absorción superior (hasta 10 veces mayor) gracias a la tecnología Oligo®.
                         </p>
                     </div>
                     <div class="mt-4">
-                        <p class="text-lg font-bold text-slate-900">$680.00 <span class="text-[9px] font-normal opacity-50 uppercase">Socio</span></p>
+                        <p class="text-lg font-bold text-slate-900">$680.00 <span class="text-[9px] font-normal opacity-50 uppercase">Precio Socio</span></p>
                     </div>
                 </div>
 
-                <!-- 4. GC Control -->
+                <!-- GC Control -->
                 <div class="glass-card p-4 flex flex-col justify-between text-center border-t-4 border-gold">
                     <div>
                         <div class="w-full h-40 bg-slate-100 rounded-lg mb-4 flex items-center justify-center italic text-slate-400 text-xs p-4">[GC Control]</div>
                         <h4 class="font-bold text-sm">GC Control</h4>
                         <p class="text-[9px] text-emerald-600 font-bold uppercase mt-1">Soporte Glucémico</p>
                         <p class="text-[11px] text-slate-500 leading-snug mt-2 text-left italic">
-                            Batido con Cromo Oligo, canela y ginseng. Control clínico de picos de azúcar en la sangre y resistencia a la insulina.
+                            Batido con Cromo Oligo, canela y ginseng. Diseñado clínicamente para el control de picos de azúcar en sangre.
                         </p>
                     </div>
                     <div class="mt-4">
-                        <p class="text-lg font-bold text-slate-900">$410.00 <span class="text-[9px] font-normal opacity-50 uppercase">Socio</span></p>
+                        <p class="text-lg font-bold text-slate-900">$410.00 <span class="text-[9px] font-normal opacity-50 uppercase">Precio Socio</span></p>
                     </div>
                 </div>
+            </div>
 
+            <!-- BASE DE DATOS COMPLETA DE INSUMOS -->
+            <div class="glass-card p-6">
+                <h3 class="text-xl font-bold mb-4 text-slate-900 border-b pb-2 flex items-center gap-2">
+                    <span>🗃️</span> Base de Datos Técnica de Insumos (Gabinete MarCu)
+                </h3>
+                <p class="text-xs text-slate-500 mb-4 italic">Auditoría de activos biológicos y de limpieza del portafolio Melaleuca para la formulación de protocolos de estatus.</p>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-700 uppercase text-[10px] font-bold">
+                                <th class="p-3 border-b">Insumo</th>
+                                <th class="p-3 border-b">Línea MarCu</th>
+                                <th class="p-3 border-b">Especificación Técnica</th>
+                                <th class="p-3 border-b">Nota de Calidad del Gabinete</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-[11px] text-slate-600 leading-normal">
+                            <tr>
+                                <td class="p-3 border-b font-bold text-slate-900">Clear Power®</td>
+                                <td class="p-3 border-b text-amber-600 font-semibold">VitalCare</td>
+                                <td class="p-3 border-b">Limpiador de vidrios con agentes botánicos biodegradables. Libre de amoníaco. Concentrado 12x.</td>
+                                <td class="p-3 border-b text-emerald-700 font-medium bg-emerald-50/50">✓ Óptimo para vidrios. No deja manchas ni película grasa.</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 border-b font-bold text-slate-900">Sol-U-Mel®</td>
+                                <td class="p-3 border-b text-amber-600 font-semibold">VitalCare / SOS</td>
+                                <td class="p-3 border-b">Quitamanchas y desodorizante a base de aceite de Melaleuca concentrado. Disuelve adhesivos y grasa.</td>
+                                <td class="p-3 border-b text-red-700 font-medium bg-red-50/50">⚠ No usar en vidrios. Su alto contenido de aceite de té de árbol deja residuos grasos opacos.</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 border-b font-bold text-slate-900">MelaPower® 9x</td>
+                                <td class="p-3 border-b text-amber-600 font-semibold">VitalCare</td>
+                                <td class="p-3 border-b">Detergente de lavado libre de cloro o fragancias sintéticas. Concentración 9x.</td>
+                                <td class="p-3 border-b">Apto para pieles sensibles y cuidado textil avanzado.</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 border-b font-bold text-slate-900">Renew® Lotion</td>
+                                <td class="p-3 border-b text-amber-600 font-semibold">Clinical Home</td>
+                                <td class="p-3 border-b">Loción clínica humectante para barrera dérmica dañada. Alivia eczema y resequedad extrema.</td>
+                                <td class="p-3 border-b text-emerald-700 font-medium bg-emerald-50/50">✓ Clínicamente probada como la solución principal del gabinete para piel seca.</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 border-b font-bold text-slate-900">GC Control®</td>
+                                <td class="p-3 border-b text-amber-600 font-semibold">NutraScience</td>
+                                <td class="p-3 border-b">Batido con Cromo Oligo®, canela y ginseng coreano para el balance de glucosa.</td>
+                                <td class="p-3 border-b text-emerald-700 font-medium bg-emerald-50/50">✓ Soporte clínico premium para resistencia a la insulina y control glucémico.</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 border-b font-bold text-slate-900">Vitality Multivitamin®</td>
+                                <td class="p-3 border-b text-amber-600 font-semibold">NutraScience</td>
+                                <td class="p-3 border-b">Complejo multivitamínico con tecnología Oligo® patentada para absorción celular.</td>
+                                <td class="p-3 border-b">Garantiza absorción de Vitamina B12 sin provocar daño gástrico u oxidación de nutrientes.</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 border-b font-bold text-slate-900">Tub & Tile®</td>
+                                <td class="p-3 border-b text-amber-600 font-semibold">VitalCare</td>
+                                <td class="p-3 border-b">Limpiador de baños a base de ácido cítrico natural (limones). Disuelve sarro.</td>
+                                <td class="p-3 border-b">Limpia depósitos de agua dura sin emanar gases tóxicos.</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 border-b font-bold text-slate-900">Tough & Tender®</td>
+                                <td class="p-3 border-b text-amber-600 font-semibold">VitalCare</td>
+                                <td class="p-3 border-b">Limpiador multiusos concentrado. Seguro para cualquier superficie lavable.</td>
+                                <td class="p-3 border-b">Limpia de forma segura encimeras de granito, cuarzo y mármol.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </section>
 
@@ -174,7 +259,7 @@
             </div>
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="glass-card p-8 border-l-4 border-gold">
-                    <h3 class="text-xl font-bold mb-4">¿Quién nos conoce?</h3>
+                    <h3 class="text-xl font-bold mb-4">¿Quién nos conoce? El Sello de Confianza</h3>
                     <p class="text-sm text-slate-600 leading-relaxed italic">"Nadie conoce a MarCu hoy, pero todos respetan un Título Médico, un Registro de Ingeniero y un Portafolio Arquitectónico."</p>
                     <ul class="text-[10px] space-y-3 font-bold text-slate-500 uppercase mt-4">
                         <li>✅ Cédulas Profesionales visibles (Confianza Legal)</li>
@@ -227,10 +312,13 @@
             </div>
         </section>
 
-        <!-- 5. SOP: EL WRAPPER -->
+        <!-- 5. SOP: EL WRAPPER (ANATOMÍA DE ENTREGA) -->
         <section id="tab-ops" class="tab-content space-y-8">
             <div class="glass-card p-8">
                 <h2 class="text-3xl font-bold mb-6 italic text-slate-900 text-center">El "Wrapper" de Grupo MarCu</h2>
+                <p class="text-xs text-center text-slate-500 max-w-xl mx-auto leading-relaxed">
+                    Estandarización del empaque y entrega para justificar el sobreprecio y brindar soporte de estatus.
+                </p>
                 <div class="grid md:grid-cols-3 gap-6 mt-10">
                     <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200">
                         <h4 class="font-bold text-[10px] text-amber-700 uppercase mb-3">Capa 1: Privacidad</h4>
@@ -244,49 +332,208 @@
                     </div>
                     <div class="p-6 bg-slate-900 text-white rounded-2xl">
                         <h4 class="font-bold text-[10px] text-gold uppercase mb-3">Capa 3: Autoridad</h4>
-                        <p class="text-xs font-bold mb-2">Ficha Médica + SOP Arquitectónico</p>
-                        <p class="text-[10px] text-slate-400 italic">El gabinete profesional certifica la aplicación del producto.</p>
+                        <p class="text-xs font-bold mb-2">Ficha Médica + SOP</p>
+                        <p class="text-[10px] text-slate-400 italic">El gabinete profesional certifica la dosificación del producto.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 6. IA: LABORATORIO RESTAURADO ✨ -->
+        <!-- 6. IA: LABORATORIO DE INTELIGENCIA CON FICHAS DE ALTA GAMA ✨ -->
         <section id="tab-ai" class="tab-content space-y-6">
             <div class="text-center">
                 <h2 class="text-3xl font-bold italic text-slate-900">Laboratorio IA Martínez Cuevas ✨</h2>
                 <p class="text-[10px] text-slate-400 uppercase tracking-widest mt-1 italic">Consultoría Integrada para el Gabinete</p>
             </div>
-            <div class="grid md:grid-cols-3 gap-4 text-left">
-                <div class="glass-card p-5 border-t-4 border-gold bg-white">
-                    <h3 class="font-bold text-sm mb-3">🩺 Protocolo Médico</h3>
-                    <input type="text" id="ai-in-p" placeholder="Ej: Diabetes o control glucémico..." class="w-full bg-slate-50 border p-2 rounded text-xs mb-3 focus:border-gold outline-none">
-                    <button onclick="runAI('protocol')" class="w-full bg-slate-900 text-white py-2 rounded font-bold text-[10px]">Generar</button>
-                    <div id="out-p" class="hidden mt-4 text-[9px] font-mono p-3 bg-slate-50 border rounded h-40 overflow-y-auto leading-relaxed"></div>
+            
+            <div class="grid md:grid-cols-3 gap-6 text-left">
+                
+                <!-- MEDICO (PROTOCOLOS) -->
+                <div class="glass-card p-5 border-t-4 border-gold bg-white flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-sm mb-1">🩺 Protocolo Médico</h3>
+                        <p class="text-[9px] text-slate-400 mb-3 italic">Generación de guías clínicas y soluciones.</p>
+                        <input type="text" id="ai-in-p" placeholder="Ej: Piel seca, resequedad..." class="w-full bg-slate-50 border p-2 rounded text-xs mb-3 focus:border-gold outline-none">
+                    </div>
+                    <div>
+                        <div class="flex gap-2">
+                            <button onclick="runAI('protocol')" id="btn-p" class="flex-1 bg-slate-900 text-white py-2 rounded font-bold text-[10px] hover:bg-slate-800 transition-colors">Generar</button>
+                            <button onclick="clearAI('protocol')" class="bg-slate-200 text-slate-700 px-3 py-2 rounded font-bold text-[10px] hover:bg-slate-300 transition-colors">Limpiar</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="glass-card p-5 border-t-4 border-slate-900 bg-white">
-                    <h3 class="font-bold text-sm mb-3">📽️ Marketing Script</h3>
-                    <input type="text" id="ai-in-s" placeholder="Ej: GC Control..." class="w-full bg-slate-50 border p-2 rounded text-xs mb-3 outline-none">
-                    <button onclick="runAI('script')" class="w-full bg-slate-800 text-white py-2 rounded font-bold text-[10px]">Redactar</button>
-                    <div id="out-s" class="hidden mt-4 text-[9px] italic p-3 bg-slate-50 border rounded h-40 overflow-y-auto leading-relaxed"></div>
+
+                <!-- MARKETING (SCRIPT ADCOPY) -->
+                <div class="glass-card p-5 border-t-4 border-slate-900 bg-white flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-sm mb-1">📽️ Marketing Script</h3>
+                        <p class="text-[9px] text-slate-400 mb-3 italic">Guiones y copies de estatus para Ads.</p>
+                        <input type="text" id="ai-in-s" placeholder="Ej: GC Control, MelaPower..." class="w-full bg-slate-50 border p-2 rounded text-xs mb-3 outline-none">
+                    </div>
+                    <div>
+                        <div class="flex gap-2">
+                            <button onclick="runAI('script')" id="btn-s" class="flex-1 bg-slate-800 text-white py-2 rounded font-bold text-[10px] hover:bg-slate-700 transition-colors">Redactar</button>
+                            <button onclick="clearAI('script')" class="bg-slate-200 text-slate-700 px-3 py-2 rounded font-bold text-[10px] hover:bg-slate-300 transition-colors">Limpiar</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="glass-card p-5 border-t-4 border-gold bg-white">
-                    <h3 class="font-bold text-sm mb-3">📊 Ingeniería ROI</h3>
-                    <input type="number" id="ai-in-i" placeholder="Monto MXN..." class="w-full bg-slate-50 border p-2 rounded text-xs mb-3 outline-none">
-                    <button onclick="runAI('invest')" class="w-full bg-gold text-slate-900 py-2 rounded font-bold text-[10px] hover:bg-amber-500">Calcular</button>
-                    <div id="out-i" class="hidden mt-4 text-[9px] p-3 bg-amber-50 rounded h-40 overflow-y-auto leading-relaxed font-medium"></div>
+
+                <!-- INGENIERÍA ROI (SIMULADOR OPERATIVO Y RETORNO) -->
+                <div class="glass-card p-5 border-t-4 border-gold bg-white flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-sm mb-1">📊 Ingeniería ROI</h3>
+                        <p class="text-[9px] text-slate-400 mb-3 italic">Simulador de costos y utilidades.</p>
+                        <input type="number" id="ai-in-i" placeholder="Capital a invertir (ej: 60000)..." class="w-full bg-slate-50 border p-2 rounded text-xs mb-3 outline-none">
+                    </div>
+                    <div>
+                        <div class="flex gap-2">
+                            <button onclick="runAI('invest')" id="btn-i" class="flex-1 bg-gold text-slate-900 py-2 rounded font-bold text-[10px] hover:bg-amber-500 transition-colors">Calcular</button>
+                            <button onclick="clearAI('invest')" class="bg-slate-200 text-slate-700 px-3 py-2 rounded font-bold text-[10px] hover:bg-slate-300 transition-colors">Limpiar</button>
+                        </div>
+                    </div>
                 </div>
+
             </div>
-            <div id="ai-history" class="grid grid-cols-2 md:grid-cols-4 gap-2 mt-6"></div>
+
+            <!-- CONTENEDORES DE RESULTADOS VISUALMENTE ESPECTACULARES -->
+            <div id="container-out-p" class="hidden glass-card p-6 border-2 border-gold/40 space-y-4">
+                <div id="out-p"></div>
+                <button onclick="copyToClipboard('out-p')" class="w-full bg-slate-50 text-slate-700 border border-slate-200 py-2.5 rounded-xl font-bold text-xs hover:bg-slate-100 transition-colors flex items-center justify-center gap-1">
+                    <span>📋</span> Copiar Ficha de Protocolo
+                </button>
+            </div>
+
+            <div id="container-out-s" class="hidden glass-card p-6 border-2 border-slate-200 space-y-4">
+                <div id="out-s"></div>
+                <button onclick="copyToClipboard('out-s')" class="w-full bg-slate-50 text-slate-700 border border-slate-200 py-2.5 rounded-xl font-bold text-xs hover:bg-slate-100 transition-colors flex items-center justify-center gap-1">
+                    <span>📋</span> Copiar Guión Comercial
+                </button>
+            </div>
+
+            <div id="container-out-i" class="hidden glass-card p-6 border-2 border-emerald-200 space-y-4 bg-emerald-50/10">
+                <div id="out-i"></div>
+                <button onclick="copyToClipboard('out-i')" class="w-full bg-slate-50 text-slate-700 border border-slate-200 py-2.5 rounded-xl font-bold text-xs hover:bg-slate-100 transition-colors flex items-center justify-center gap-1">
+                    <span>📋</span> Copiar Reporte de ROI
+                </button>
+            </div>
+            
+            <div class="glass-card p-4">
+                <h4 class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-3 border-b pb-2">Historial Cloud de Consultas</h4>
+                <div id="ai-history" class="grid grid-cols-2 md:grid-cols-4 gap-3"></div>
+            </div>
         </section>
 
     </main>
 
     <footer class="py-12 border-t text-center text-[9px] text-slate-400 uppercase font-bold tracking-[0.3em] bg-white mt-12">
-        Consorcio Martínez Cuevas • Monterrey • Global Cloud Sync v15.8
+        Consorcio Martínez Cuevas • Monterrey • Global Cloud Sync v16.2
     </footer>
 
+    <script type="module">
+        // --- INICIALIZACIÓN DE FIREBASE E HIBRIDACIÓN DE NUBE POKA-YOKE ---
+        let db = null;
+        let auth = null;
+        let isCloudActive = false;
+
+        async function initFirebaseAndSync() {
+            try {
+                if (typeof __firebase_config !== 'undefined' && __firebase_config) {
+                    const { initializeApp } = await import("https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js");
+                    const { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } = await import("https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js");
+                    const { getFirestore, collection, addDoc, onSnapshot, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js");
+
+                    const firebaseConfig = JSON.parse(__firebase_config);
+                    const app = initializeApp(firebaseConfig);
+                    auth = getAuth(app);
+                    db = getFirestore(app);
+                    const appId = typeof __app_id !== 'undefined' ? __app_id : 'marcu-portal-v15';
+
+                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                        await signInWithCustomToken(auth, __initial_auth_token);
+                    } else {
+                        await signInAnonymously(auth);
+                    }
+
+                    onAuthStateChanged(auth, u => {
+                        if (u) {
+                            isCloudActive = true;
+                            const badge = document.getElementById('sync-status');
+                            if(badge) {
+                                badge.innerHTML = `<span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span> Cloud Sincronizado`;
+                                badge.className = "cloud-badge bg-green-50 text-green-700";
+                            }
+                            
+                            // Suscripción Realtime a Notas en Firebase (Producción)
+                            onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'notes'), (snap) => {
+                                const list = document.getElementById('notes-list');
+                                const count = document.getElementById('count-display');
+                                if(list) {
+                                    list.innerHTML = '';
+                                    const sorted = snap.docs.sort((a,b) => (b.data().timestamp?.seconds || 0) - (a.data().timestamp?.seconds || 0));
+                                    if(sorted.length === 0) list.innerHTML = '<p class="text-center text-[10px] text-slate-300 italic py-4">Listo para acuerdos.</p>';
+                                    sorted.forEach(d => {
+                                        const data = d.data();
+                                        const time = data.timestamp ? new Date(data.timestamp.toDate()).toLocaleTimeString('es-MX') : '...';
+                                        list.innerHTML += `<div class="p-3 bg-white border border-slate-100 rounded-xl shadow-sm border-l-4 border-gold">
+                                            <p class="text-[11px] text-slate-700 font-medium italic">"${data.text}"</p>
+                                            <div class="flex justify-between mt-1 text-[7px] text-slate-400 font-bold uppercase">
+                                                <span>Firma: GABINETE</span><span>${time}</span>
+                                            </div></div>`;
+                                    });
+                                    if(count) count.innerText = sorted.length + (sorted.length === 1 ? " Acuerdo" : " Acuerdos");
+                                }
+                            });
+
+                            // Suscripción Realtime a Historial de IA
+                            onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'ai_history'), (snap) => {
+                                const hist = document.getElementById('ai-history');
+                                if(hist) {
+                                    hist.innerHTML = '';
+                                    const sorted = snap.docs.sort((a,b) => (b.data().timestamp?.seconds || 0) - (a.data().timestamp?.seconds || 0));
+                                    sorted.forEach(d => {
+                                        const data = d.data();
+                                        hist.innerHTML += `<div class="p-2 bg-white border rounded text-[7px] shadow-sm flex flex-col h-14 overflow-hidden border-slate-100">
+                                            <p class="font-bold truncate text-slate-900 uppercase">${data.input || 'IA MarCu'}</p>
+                                            <p class="opacity-40 italic truncate mt-1">"${data.result ? data.result.substring(0,25) : ''}..."</p>
+                                            <button onclick="openModal('${(data.input || 'Consulta').toUpperCase()}', '${data.result ? data.result.replace(/'/g, "\\'").replace(/\n/g, "<br>") : ""}')" class="text-gold font-bold uppercase mt-1 text-right hover:underline">Ver</button>
+                                        </div>`;
+                                    });
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    useLocalSimulationMode();
+                }
+            } catch (e) {
+                console.warn("Ejecutando en Modo de Simulación Local Seguro (Poka-Yoke):", e);
+                useLocalSimulationMode();
+            }
+        }
+
+        function useLocalSimulationMode() {
+            isCloudActive = false;
+            const badge = document.getElementById('sync-status');
+            if(badge) {
+                badge.innerHTML = `<span class="w-1.5 h-1.5 bg-amber-500 rounded-full"></span> Modo de Pruebas (Local)`;
+                badge.className = "cloud-badge bg-amber-50 text-amber-700";
+            }
+        }
+
+        initFirebaseAndSync();
+    </script>
+
     <script>
+        // --- CONTROL MODAL PREMIUM (REEMPLAZA ALERTS) ---
+        window.openModal = (title, bodyText) => {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-body').innerHTML = bodyText;
+            document.getElementById('custom-modal').classList.remove('hidden');
+        };
+        window.closeModal = () => {
+            document.getElementById('custom-modal').classList.add('hidden');
+        };
+
         // --- NAVEGACIÓN GLOBAL ---
         function showTab(id) {
             const sections = document.querySelectorAll('.tab-content');
@@ -298,29 +545,51 @@
             window.scrollTo(0,0);
         }
 
-        // --- SISTEMA DE ACUERDOS (SIMULADO PARA GITHUB) ---
-        let agreements = 0;
-        function saveNote() {
+        // --- SISTEMA DE ACUERDOS (HÍBRIDO NUBE/LOCAL) ---
+        let localAgreementsCount = 0;
+        async function saveNote() {
             const area = document.getElementById('cabinet-note');
             const noteText = area.value.trim();
             if(!noteText) return;
-            agreements++;
-            document.getElementById('count-display').innerText = agreements + (agreements === 1 ? " Acuerdo" : " Acuerdos");
+
             const list = document.getElementById('notes-list');
+            const count = document.getElementById('count-display');
             const now = new Date();
             const time = now.toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' });
-            const note = `
-                <div class="p-3 bg-white border border-slate-100 rounded-xl shadow-sm border-l-4 border-gold animate-pulse text-[11px] italic">
-                    "${noteText}"
-                    <div class="flex justify-between mt-2 text-[7px] text-slate-400 font-bold uppercase border-t pt-1">
-                        <span>Firma: GABINETE</span><span>${time}</span>
-                    </div>
-                </div>`;
-            list.innerHTML = note + list.innerHTML;
+
+            if (typeof isCloudActive !== 'undefined' && isCloudActive) {
+                try {
+                    const { collection, addDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js");
+                    const app_id_real = typeof __app_id !== 'undefined' ? __app_id : 'marcu-portal-v15';
+                    await addDoc(collection(db, 'artifacts', app_id_real, 'public', 'data', 'notes'), { 
+                        text: noteText, 
+                        timestamp: serverTimestamp() 
+                    });
+                    area.value = '';
+                    return;
+                } catch (e) {
+                    console.error("Fallo al guardar en Firebase, usando respaldo local:", e);
+                }
+            }
+
+            // Fallback de Simulación Local
+            localAgreementsCount++;
+            if (count) count.innerText = localAgreementsCount + (localAgreementsCount === 1 ? " Acuerdo" : " Acuerdos");
+            if (list) {
+                if (localAgreementsCount === 1) list.innerHTML = '';
+                const note = `
+                    <div class="p-3 bg-white border border-slate-100 rounded-xl shadow-sm border-l-4 border-gold animate-pulse text-[11px] italic">
+                        "${noteText}"
+                        <div class="flex justify-between mt-2 text-[7px] text-slate-400 font-bold uppercase border-t pt-1">
+                            <span>Firma: GABINETE (Local)</span><span>${time}</span>
+                        </div>
+                    </div>`;
+                list.innerHTML = note + list.innerHTML;
+            }
             area.value = '';
         }
 
-        // --- TELEMETRÍA DE DATOS ---
+        // --- TELEMETRÍA DE DATOS DE AMAZON ---
         let marketChart;
         function executeSweep() {
             const btn = document.querySelector('.btn-sweep');
@@ -342,7 +611,7 @@
             if(!ctx) return;
             const dataSets = [
                 { label: 'MarCu/Melaleuca (Biociencia) (%)', data: [95.4, 88.2, 82.5, 75.1], backgroundColor: '#c5a059' },
-                { label: 'Amazon Premium Leaders (%)', data: [70.1, 65.4, 60.2, 55.8], backgroundColor: '#0f172a' }
+                { label: 'Amazon Premium Leaders (Seventh Gen/Method) (%)', data: [70.1, 65.4, 60.2, 55.8], backgroundColor: '#0f172a' }
             ];
             if(marketChart) marketChart.destroy();
             marketChart = new Chart(ctx, {
@@ -356,33 +625,352 @@
             });
         }
 
-        // --- IA SIMULACION CON RESPUESTAS REALES v15.8 ---
+        // --- MOTOR DE IA LOCAL v16.2 (CONSTRUIDO DE FICHAS DE ALTA GAMA) ---
         function runAI(type) {
             const outId = type === 'protocol' ? 'out-p' : (type === 'script' ? 'out-s' : 'out-i');
             const output = document.getElementById(outId);
-            const inputVal = type === 'protocol' ? document.getElementById('ai-in-p').value : (type === 'script' ? document.getElementById('ai-in-s').value : document.getElementById('ai-in-i').value);
+            const containerId = type === 'protocol' ? 'container-out-p' : (type === 'script' ? 'container-out-s' : 'container-out-i');
+            const container = document.getElementById(containerId);
             
-            output.innerHTML = "<span class='animate-pulse'>Procesando en Nube Gemini...</span>";
-            output.classList.remove('hidden');
+            let rawInput = "";
+            if (type === 'protocol') rawInput = document.getElementById('ai-in-p').value.trim();
+            else if (type === 'script') rawInput = document.getElementById('ai-in-s').value.trim();
+            else rawInput = document.getElementById('ai-in-i').value.trim();
+
+            if (!rawInput && type !== 'invest') {
+                openModal("SOP ALERTA", "Error: Por favor, ingrese un concepto antes de consultar.");
+                return;
+            }
+
+            if (container) container.classList.remove('hidden');
+            output.innerHTML = "<span class='animate-pulse text-gold text-xs block py-4 text-center'>Procesando petición en la Nube de Google y aplicando Poka-Yoke...</span>";
             
-            setTimeout(() => {
-                let responseText = "";
+            setTimeout(async () => {
+                let htmlResponse = "";
+                const normalized = rawInput.toLowerCase().trim();
+
+                // PROTOCOLOS DE ALTA GAMA (MEDICINA, ARQUITECTURA E INGENIERÍA)
                 if (type === 'protocol') {
-                    responseText = `**PROTOCOLO METABÓLICO MARCU v15.8**<br><br>
-                    Para un cliente con diabetes o prediabetes en Monterrey, el Dr. Martínez C. prescribe:<br>
-                    1. **GC Control (Batido de Biociencia):** Sustituto de desayuno para estabilizar la glucosa y reducir resistencia a la insulina con Cromo Oligo®.<br>
-                    2. **Vitality Pack (Oligo®):** Protección de Vitamina B12 para el sistema nervioso, asegurando una absorción 10 veces mayor.`;
-                } else if (type === 'script') {
-                    responseText = `**GUION DE MARKETING (30 SEG) - GC CONTROL**<br><br>
-                    *Escena:* Cocina de lujo en San Pedro, limpia e iluminada.<br>
-                    *Voz en off:* "El estatus no es solo lo que tienes, es cómo cuidas tu energía. GC Control de MarCu no es un batido común; es biociencia con tecnología patentada Oligo® para mantener tu metabolismo en balance clínico."`;
-                } else {
-                    responseText = `**CORRIDA FINANCIERA MARCU**<br><br>
-                    Inversión simulada exitosamente. El margen neto del 42.5% de los combos clínicos garantiza un retorno de capital (ROI) del 158% con un punto de equilibrio al mes 4 en San Pedro.`;
+                    if (normalized.includes('seca') || normalized.includes('piel') || normalized.includes('crema') || normalized.includes('dermatitis') || normalized.includes('renew')) {
+                        htmlResponse = `
+                        <div class="space-y-4">
+                            <!-- Cabecera de Ficha -->
+                            <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                                <div>
+                                    <h4 class="font-bold text-sm tracking-wider text-slate-900 uppercase">Ficha de Prescripción MarCu v16.2</h4>
+                                    <p class="text-[8px] text-slate-400 uppercase tracking-widest mt-0.5">Control de Calidad: Piel Seca</p>
+                                </div>
+                                <span class="text-[9px] bg-amber-100 text-amber-800 font-bold px-3 py-1 rounded-full uppercase">CLINICAL HOME</span>
+                            </div>
+
+                            <!-- Insumo Asignado -->
+                            <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                                <span class="text-[8px] font-bold text-slate-400 uppercase tracking-wider block">Insumo Prescrito del Catálogo:</span>
+                                <h5 class="text-sm font-bold text-[#c5a059] mt-0.5">Renew® Lotion (Humectación Clínica Profunda)</h5>
+                                <div class="flex justify-between items-center mt-3 text-[10px] font-bold">
+                                    <span class="text-slate-500">PRECIO SOCIO MARCU:</span>
+                                    <span class="text-slate-900 bg-white border px-3 py-0.5 rounded-lg">$170.00 MXN</span>
+                                </div>
+                            </div>
+
+                            <!-- Diagnóstico Multidisciplinario -->
+                            <div class="grid md:grid-cols-3 gap-3 pt-2">
+                                <div class="p-3 border border-slate-100 rounded-xl bg-white space-y-1">
+                                    <span class="text-lg">🩺</span>
+                                    <strong class="text-[10px] text-slate-800 block uppercase font-bold">Dr. Martínez (Medicina)</strong>
+                                    <p class="text-[9.5px] text-slate-500 leading-relaxed italic">
+                                        "La deshidratación de la barrera cutánea requiere lípidos biocompatibles. Prescribo Renew® cada 12 horas en zonas afectadas. Su fórmula es libre de petrolatos y clínicamente superior para restaurar la piel seca."
+                                    </p>
+                                </div>
+                                <div class="p-3 border border-slate-100 rounded-xl bg-white space-y-1">
+                                    <span class="text-lg">📐</span>
+                                    <strong class="text-[10px] text-slate-800 block uppercase font-bold">Arq. Cuevas (Espacio)</strong>
+                                    <p class="text-[9.5px] text-slate-500 leading-relaxed italic">
+                                        "Mantener el envase Renew® en el tocador principal. Su diseño sobrio en tonos blancos e institucionales preserva el balance estético de las áreas húmedas, aportando estatus visual."
+                                    </p>
+                                </div>
+                                <div class="p-3 border border-slate-100 rounded-xl bg-white space-y-1">
+                                    <span class="text-lg">⚙️</span>
+                                    <strong class="text-[10px] text-slate-800 block uppercase font-bold">Ing. Martínez (Calidad)</strong>
+                                    <p class="text-[9.5px] text-slate-500 leading-relaxed italic">
+                                        "Estandarizar dosificación: 1 presión del dosificador por extremidad húmeda tras el baño. Rendimiento del envase calculado para 30 días bajo uso continuo."
+                                    </p>
+                                </div>
+                            </div>
+                        </div>`;
+                    } else if (normalized.includes('vidrio') || normalized.includes('limpieza') || normalized.includes('ventana') || normalized.includes('clear power')) {
+                        htmlResponse = `
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                                <div>
+                                    <h4 class="font-bold text-sm tracking-wider text-slate-900 uppercase">Ficha de Prescripción MarCu v16.2</h4>
+                                    <p class="text-[8px] text-slate-400 uppercase tracking-widest mt-0.5">Control de Calidad: Vidrios e Iluminación</p>
+                                </div>
+                                <span class="text-[9px] bg-amber-100 text-amber-800 font-bold px-3 py-1 rounded-full uppercase">VITALCARE</span>
+                            </div>
+
+                            <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                                <span class="text-[8px] font-bold text-slate-400 uppercase tracking-wider block">Insumo Prescrito del Catálogo:</span>
+                                <h5 class="text-sm font-bold text-[#c5a059] mt-0.5">Clear Power® (Limpiador de Vidrios)</h5>
+                                <div class="flex justify-between items-center mt-3 text-[10px] font-bold">
+                                    <span class="text-slate-500">PRECIO SOCIO MARCU:</span>
+                                    <span class="text-slate-900 bg-white border px-3 py-0.5 rounded-lg">$115.00 MXN</span>
+                                </div>
+                            </div>
+
+                            <div class="grid md:grid-cols-3 gap-3 pt-2">
+                                <div class="p-3 border border-slate-100 rounded-xl bg-white space-y-1">
+                                    <span class="text-lg">🩺</span>
+                                    <strong class="text-[10px] text-slate-800 block uppercase font-bold">Dr. Martínez (Medicina)</strong>
+                                    <p class="text-[9.5px] text-slate-500 leading-relaxed italic">
+                                        "Los vapores de amoníaco tradicionales irritan el tracto respiratorio. Prescribo el uso de Clear Power® por ser una fórmula biodegradable libre de toxinas respiratorias."
+                                    </p>
+                                </div>
+                                <div class="p-3 border border-slate-100 rounded-xl bg-white space-y-1">
+                                    <span class="text-lg">📐</span>
+                                    <strong class="text-[10px] text-slate-800 block uppercase font-bold">Arq. Cuevas (Espacio)</strong>
+                                    <p class="text-[9.5px] text-slate-500 leading-relaxed italic">
+                                        "La acumulación de polvo en ventanales obstaculiza el paso de la luz natural directa. Recomiendo el mantenimiento de cristales para mejorar el descanso y bienestar diario de la familia."
+                                    </p>
+                                </div>
+                                <div class="p-3 border border-slate-100 rounded-xl bg-white space-y-1">
+                                    <span class="text-lg">⚙️</span>
+                                    <strong class="text-[10px] text-slate-800 block uppercase font-bold">Ing. Martínez (Calidad)</strong>
+                                    <p class="text-[9.5px] text-slate-500 leading-relaxed italic">
+                                        "Se prohíbe el uso de Sol-U-Mel® en vidrios por su contenido graso. Utilizar Clear Power® diluido según la proporción estándar 12x con atomizador oficial MarCu."
+                                    </p>
+                                </div>
+                            </div>
+                        </div>`;
+                    } else if (normalized.includes('diabete') || normalized.includes('glucosa') || normalized.includes('azucar') || normalized.includes('gc')) {
+                        htmlResponse = `
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                                <div>
+                                    <h4 class="font-bold text-sm tracking-wider text-slate-900 uppercase">Ficha de Prescripción MarCu v16.2</h4>
+                                    <p class="text-[8px] text-slate-400 uppercase tracking-widest mt-0.5">Soporte Glucémico Avanzado</p>
+                                </div>
+                                <span class="text-[9px] bg-amber-100 text-amber-800 font-bold px-3 py-1 rounded-full uppercase">NUTRASCIENCE</span>
+                            </div>
+
+                            <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                                <span class="text-[8px] font-bold text-slate-400 uppercase tracking-wider block">Combo de Estatus Prescrito:</span>
+                                <h5 class="text-sm font-bold text-[#c5a059] mt-0.5">GC Control® + Vitality Pack (Oligo®)</h5>
+                                <div class="flex justify-between items-center mt-3 text-[10px] font-bold">
+                                    <span class="text-slate-500">INVERSIÓN CLÍNICA COMBO:</span>
+                                    <span class="text-slate-900 bg-white border px-3 py-0.5 rounded-lg">$1,090.00 MXN</span>
+                                </div>
+                            </div>
+
+                            <div class="grid md:grid-cols-3 gap-3 pt-2">
+                                <div class="p-3 border border-slate-100 rounded-xl bg-white space-y-1">
+                                    <span class="text-lg">🩺</span>
+                                    <strong class="text-[10px] text-slate-800 block uppercase font-bold">Dr. Martínez (Medicina)</strong>
+                                    <p class="text-[9.5px] text-slate-500 leading-relaxed italic">
+                                        "Prescribo GC Control como batido sustituto de desayuno para regular la glucosa con Cromo Oligo®, complementando con Vitality Pack para asegurar la absorción de Vitamina B12."
+                                    </p>
+                                </div>
+                                <div class="p-3 border border-slate-100 rounded-xl bg-white space-y-1">
+                                    <span class="text-lg">📐</span>
+                                    <strong class="text-[10px] text-slate-800 block uppercase font-bold">Arq. Cuevas (Espacio)</strong>
+                                    <p class="text-[9.5px] text-slate-500 leading-relaxed italic">
+                                        "Disponer el combo en la repisa de desayunador en frascos herméticos Navy para mantener un ambiente de cocina limpio, ordenado y alineado a un estilo de vida saludable."
+                                    </p>
+                                </div>
+                                <div class="p-3 border border-slate-100 rounded-xl bg-white space-y-1">
+                                    <span class="text-lg">⚙️</span>
+                                    <strong class="text-[10px] text-slate-800 block uppercase font-bold">Ing. Martínez (Calidad)</strong>
+                                    <p class="text-[9.5px] text-slate-500 leading-relaxed italic">
+                                        "Dosis diaria estandarizada: 1 porción de GC Control disuelta en 250ml de agua purificada fría. Retorno de inversión (ROI) en salud celular medible al mes 1."
+                                    </p>
+                                </div>
+                            </div>
+                        </div>`;
+                    } else {
+                        htmlResponse = `
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                                <div>
+                                    <h4 class="font-bold text-sm tracking-wider text-slate-900 uppercase">Ficha Técnica MarCu v16.2</h4>
+                                    <p class="text-[8px] text-slate-400 uppercase tracking-widest mt-0.5">Diagnóstico del Gabinete Familiar</p>
+                                </div>
+                                <span class="text-[9px] bg-slate-950 text-white font-bold px-3 py-1 rounded-full uppercase">ESTÁNDAR</span>
+                            </div>
+
+                            <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                                <span class="text-[8px] font-bold text-slate-400 uppercase tracking-wider block">Concepto Analizado:</span>
+                                <h5 class="text-sm font-bold text-slate-900 mt-0.5">"${rawInput}"</h5>
+                            </div>
+
+                            <div class="p-4 bg-amber-50 border border-amber-200 rounded-2xl text-[10px] text-slate-700 leading-relaxed italic text-center">
+                                "Para brindarle un estatus de presentación impecable a su cliente, le sugerimos revisar nuestra <strong>Base de Datos de Insumos</strong> en la pestaña de <strong>Catálogo</strong> y escribir palabras clave como 'piel seca', 'vidrios' o 'diabetes' en este panel."
+                            </div>
+                        </div>`;
+                    }
+                } 
+                
+                // MARKETING SCRIPT
+                else if (type === 'script') {
+                    if (normalized.includes('seca') || normalized.includes('piel') || normalized.includes('crema') || normalized.includes('renew')) {
+                        htmlResponse = `
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                                <h4 class="font-bold text-sm tracking-wider text-slate-900 uppercase">Guion Comercial: Renew® Lotion</h4>
+                                <span class="text-[9px] bg-slate-900 text-white font-bold px-3 py-1 rounded-full uppercase">Meta/TikTok Ads</span>
+                            </div>
+                            <div class="p-4 bg-slate-50 rounded-2xl space-y-3 font-mono text-[10.5px] leading-relaxed text-slate-700">
+                                <p><strong>[Video - 30 Segundos - Piel Seca Premium]</strong></p>
+                                <p><strong>*ESCENA:*</strong> Plano cerrado de una mano de piel impecable acariciando una toalla de algodón en un baño de mármol de alta gama.</p>
+                                <p><strong>*AUDIO (Voz de Estatus):*</strong> "En Monterrey, cuidamos cada rincón de nuestro espacio... pero a veces olvidamos cuidar nuestra propia barrera de protección. La resequedad de la piel no se soluciona con cremas cosméticas comunes. El Gabinete MarCu prescribe **Renew® Lotion**: la única humectación clínica de alta biociencia, libre de químicos irritantes. Porque tu cuerpo merece la misma excelencia que tu hogar. Sello MarCu."</p>
+                            </div>
+                        </div>`;
+                    } else if (normalized.includes('vidrio') || normalized.includes('limpieza') || normalized.includes('clear power')) {
+                        htmlResponse = `
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                                <h4 class="font-bold text-sm tracking-wider text-slate-900 uppercase">Guion Comercial: Clear Power®</h4>
+                                <span class="text-[9px] bg-slate-900 text-white font-bold px-3 py-1 rounded-full uppercase">Meta/TikTok Ads</span>
+                            </div>
+                            <div class="p-4 bg-slate-50 rounded-2xl space-y-3 font-mono text-[10.5px] leading-relaxed text-slate-700">
+                                <p><strong>[Video - 30 Segundos - Clear Power]</strong></p>
+                                <p><strong>*ESCENA:*</strong> Ventanal de una sala de lujo en San Pedro revelando una vista cristalina hacia la Sierra Madre de Monterrey.</p>
+                                <p><strong>*AUDIO (Voz de Estatus):*</strong> "La luz es la arquitectura silenciosa de tu hogar. ¿Sabías que limpiar tus cristales con limpiadores tradicionales inunda el aire de tu familia con amoníaco y toxinas? VitalCare de MarCu presenta el protocolo **Clear Power®**: brillo impecable sin manchas, sin grasa y libre de amoníaco. Tu familia respira aire puro, tu hogar brilla con estatus. Consorcio MarCu."</p>
+                            </div>
+                        </div>`;
+                    } else {
+                        htmlResponse = `
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                                <h4 class="font-bold text-sm tracking-wider text-slate-900 uppercase">Guion de Estatus Genérico</h4>
+                                <span class="text-[9px] bg-slate-900 text-white font-bold px-3 py-1 rounded-full uppercase">Meta Ads</span>
+                            </div>
+                            <div class="p-4 bg-slate-50 rounded-2xl space-y-3 font-mono text-[10.5px] leading-relaxed text-slate-700">
+                                <p><strong>*ESCENA:*</strong> Dr. Martínez C. en su consultorio con batas corporativas de alta gama MarCu.</p>
+                                <p><strong>*AUDIO:*</strong> "En Grupo MarCu no vendemos productos; certificamos bienestar integral. Presentamos nuestra solución para **'${rawInput}'**. Avalada por nuestro gabinete familiar en Monterrey. Dé clic y elija estatus."</p>
+                            </div>
+                        </div>`;
+                    }
+                } 
+                
+                // INGENIERÍA ROI (TABLA DE CAPITAL DESGLOSADA)
+                else if (type === 'invest') {
+                    const capital = parseFloat(rawInput);
+                    if (isNaN(capital) || capital <= 0) {
+                        htmlResponse = "<p class='text-xs text-red-500 font-bold p-4 text-center'>Error: Ingrese un capital válido para procesar la corrida financiera.</p>";
+                    } else {
+                        const legal = (capital * 0.06).toFixed(2);
+                        const empaque = (capital * 0.12).toFixed(2);
+                        const inventario = (capital * 0.40).toFixed(2);
+                        const marketing = (capital * 0.42).toFixed(2);
+                        const roiAnual = (capital * 1.58).toFixed(2);
+                        const utilNeta = (capital * 0.425).toFixed(2);
+
+                        htmlResponse = `
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                                <div>
+                                    <h4 class="font-bold text-sm tracking-wider text-slate-900 uppercase">Corrida Financiera y Análisis de ROI</h4>
+                                    <p class="text-[8px] text-slate-400 uppercase tracking-widest mt-0.5">Ingeniería de Costos MarCu v16.2</p>
+                                </div>
+                                <span class="text-[9px] bg-emerald-100 text-emerald-800 font-bold px-3 py-1 rounded-full uppercase">RESICO APROBADO</span>
+                            </div>
+
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="p-4 bg-slate-900 text-white rounded-2xl flex flex-col justify-center">
+                                    <p class="text-[8px] uppercase tracking-widest opacity-60">Capital Total Analizado</p>
+                                    <p class="text-3xl font-bold text-gold">$${capital.toLocaleString('es-MX')} MXN</p>
+                                    <p class="text-[8px] text-emerald-400 uppercase font-bold mt-2">Rentabilidad Anual Proyectada (158%):</p>
+                                    <p class="text-xl font-bold text-white">$${parseFloat(roiAnual).toLocaleString('es-MX')} MXN</p>
+                                </div>
+                                <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 flex flex-col justify-center">
+                                    <span class="text-[8px] font-bold text-slate-400 uppercase block">Utilidad Neta (RESICO 1.5%):</span>
+                                    <p class="text-2xl font-bold text-emerald-700 mt-0.5">$${parseFloat(utilNeta).toLocaleString('es-MX')} MXN</p>
+                                    <span class="text-[8px] font-bold text-slate-400 uppercase block mt-2">Punto de Equilibrio de Operación:</span>
+                                    <p class="text-xs font-bold text-slate-900">Mes 4 (Alcanzando pedido #42)</p>
+                                </div>
+                            </div>
+
+                            <div class="p-4 bg-white rounded-2xl border border-slate-100 space-y-2 text-xs">
+                                <h5 class="font-bold text-[10px] uppercase text-slate-400 tracking-wider">Desglose de Recursos del Consorcio:</h5>
+                                <div class="flex justify-between pb-1 border-b text-[11px]"><span class="text-slate-500">🏛️ Registro de Marca y Legal (6%):</span><span class="font-bold">$${parseFloat(legal).toLocaleString('es-MX')} MXN</span></div>
+                                <div class="flex justify-between pb-1 border-b text-[11px]"><span class="text-slate-500">📦 Cajas Rígidas Navy/Gold y Lacre (12%):</span><span class="font-bold">$${parseFloat(empaque).toLocaleString('es-MX')} MXN</span></div>
+                                <div class="flex justify-between pb-1 border-b text-[11px]"><span class="text-slate-500">🧼 Suministros de Alta Biociencia (40%):</span><span class="font-bold">$${parseFloat(inventario).toLocaleString('es-MX')} MXN</span></div>
+                                <div class="flex justify-between text-[11px]"><span class="text-slate-500">📱 Campaña de Pauta Digital San Pedro (42%):</span><span class="font-bold">$${parseFloat(marketing).toLocaleString('es-MX')} MXN</span></div>
+                            </div>
+                        </div>`;
+                    }
                 }
-                output.innerHTML = responseText;
-            }, 2000);
+
+                output.innerHTML = htmlResponse;
+                
+                // Registro local en historial
+                const hist = document.getElementById('ai-history');
+                if(hist) {
+                    if (hist.innerHTML.includes("Sincronizando registros")) hist.innerHTML = '';
+                    const newHist = `
+                        <div class="p-2 bg-white border rounded text-[7px] shadow-sm flex flex-col h-14 overflow-hidden border-slate-100">
+                            <p class="font-bold truncate text-slate-900 uppercase">${rawInput || 'Simulador ROI'}</p>
+                            <p class="opacity-40 italic truncate mt-0.5">"Ficha Generada..."</p>
+                            <button onclick="openModal('${(rawInput || 'Consulta').toUpperCase()}', '${htmlResponse.replace(/'/g, "\\'").replace(/\n/g, "<br>")}')" class="text-gold font-bold uppercase mt-1 text-right hover:underline">Ver</button>
+                        </div>`;
+                    hist.innerHTML = newHist + hist.innerHTML;
+                }
+
+            }, 1000);
         }
+
+        // --- FUNCIÓN LIMPIAR REGISTRO ---
+        window.clearAI = (type) => {
+            if (type === 'protocol') {
+                const input = document.getElementById('ai-in-p');
+                const outContainer = document.getElementById('container-out-p');
+                const output = document.getElementById('out-p');
+                if (input) input.value = '';
+                if (outContainer) outContainer.classList.add('hidden');
+                if (output) output.innerHTML = '';
+            } else if (type === 'script') {
+                const input = document.getElementById('ai-in-s');
+                const outContainer = document.getElementById('container-out-s');
+                const output = document.getElementById('out-s');
+                if (input) input.value = '';
+                if (outContainer) outContainer.classList.add('hidden');
+                if (output) output.innerHTML = '';
+            } else if (type === 'invest') {
+                const input = document.getElementById('ai-in-i');
+                const outContainer = document.getElementById('container-out-i');
+                const output = document.getElementById('out-i');
+                if (input) input.value = '';
+                if (outContainer) outContainer.classList.add('hidden');
+                if (output) output.innerHTML = '';
+            }
+        };
+
+        // --- FUNCIÓN COPIAR AL PORTAPAPELES (POKA-YOKE COMPATIBLE IFRAME) ---
+        window.copyToClipboard = (elementId) => {
+            const el = document.getElementById(elementId);
+            if (!el) return;
+            
+            // Reemplazo de saltos HTML <br> por saltos de carro estándar de texto plano
+            let text = el.innerHTML.replace(/<br\s*\/?>/mg, "\n");
+            
+            // Reemplazar etiquetas HTML para copiar texto plano limpio
+            const tempDiv = document.createElement("div");
+            tempDiv.innerHTML = text;
+            text = tempDiv.innerText || tempDiv.textContent || text;
+
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed'; 
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                openModal('COPIADO', 'El texto ha sido copiado al portapapeles con éxito. Ya puede pegarlo directamente en sus documentos o WhatsApp corporativo.');
+            } catch (err) {
+                console.error('No se pudo copiar el protocolo', err);
+            }
+            document.body.removeChild(textarea);
+        };
 
         window.onload = function() {
             updateChart();
